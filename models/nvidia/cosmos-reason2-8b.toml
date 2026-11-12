@@ -1,0 +1,108 @@
+id = "cosmos-reason2-8b"
+name = "Cosmos-Reason2-8B"
+developer = "nvidia"
+roles = ["embodied-reasoning", "vlm"]
+summary = "NVIDIA's reasoning vision-language model interprets images and video for physical understanding, planning and data annotation. It returns text, not motor actions. This entry covers the 8B checkpoint; the 2B and 32B siblings have separate weights and requirements."
+release_date = "2025-12-19"
+lifecycle = "released"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+
+[modalities]
+input = ["text", "image", "video"]
+output = ["text"]
+sources = ["s1"]
+
+[access]
+type = ["open-weights"]
+notes = "Hugging Face gated download requires accepting terms and sharing Hub account information with NVIDIA. Self-hosted inference is documented; no public metered API is asserted here."
+sources = ["s1", "s2"]
+
+[architecture]
+parameters = "8,767,123,696"
+built_on = "Post-trained Qwen3-VL-8B-Instruct, with its vision encoder and dense language transformer"
+frameworks = ["pytorch", "transformers", "vllm"]
+sources = ["s1", "s2"]
+
+[licence]
+code = "apache-2.0"
+weights = "nvidia-open-model-license"
+training_data = "The card inherits the Cosmos-Reason1 dataset mixture and names added physical-reasoning datasets, including EgoExo4D, PerceptionTest, Language Table, IntPhys and later VideoPhy2/NVIDIA Physical AI data. Complete dataset licences and the Qwen pretraining chain are not verified."
+commercial_use = "unclear"
+commercial_use_reason = "The code is Apache 2.0, Qwen3-VL-8B-Instruct declares Apache 2.0, and NVIDIA permits commercial model use subject to its custom agreement. Full training-data rights and the terms-version mismatch between the Hub gate and official page remain unresolved."
+sources = ["s1", "s3", "s4", "s5"]
+
+[[licence.base_models]]
+name = "Qwen3-VL-8B-Instruct"
+licence = "apache-2.0"
+relation = "fine-tuned-from"
+
+[robotics]
+action_output = "none"
+notes = "Provides text reasoning for a separate agent/controller. NVIDIA recommends 4 FPS video input to match training and at least 4,096 output tokens for long responses."
+sources = ["s1"]
+
+[hardware]
+runs = "local"
+
+[[hardware.fit]]
+device = "nvidia-h100"
+status = "vendor-claimed"
+result = "NVIDIA lists H100 with CUDA 12.8 for inference, post-training and quantization. README minimum for 8B is 32 GB GPU memory; model-card tests use BF16 on Linux. No latency, peak-memory measurement or matched workload is reported here."
+sources = ["s1", "s2"]
+
+[serving]
+runtimes = ["transformers", "vllm"]
+sources = ["s2"]
+
+[[limitations]]
+text = "The repository is in limited maintenance and directs future development to Cosmos 3. This does not establish a shutdown date for existing checkpoints."
+sources = ["s2"]
+
+[[limitations]]
+text = "The Hub gate's inline agreement is dated 23 September 2025, while the linked official licence is modified 24 October 2025. Confirm which terms accompany the downloaded revision."
+sources = ["s1", "s5"]
+
+[[limitations]]
+text = "A long context capability is not a memory-fit guarantee. The inference README recommends a reduced 8K to 16K serving context to avoid running out of memory."
+sources = ["s2"]
+
+[links]
+repo = "https://github.com/nvidia-cosmos/cosmos-reason2"
+model_card = "https://huggingface.co/nvidia/Cosmos-Reason2-8B"
+
+[[sources]]
+id = "s1"
+url = "https://huggingface.co/nvidia/Cosmos-Reason2-8B"
+title = "Cosmos-Reason2-8B model card and access agreement"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s2"
+url = "https://github.com/nvidia-cosmos/cosmos-reason2"
+title = "Cosmos-Reason2 reference repository and runtime requirements"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s3"
+url = "https://github.com/nvidia-cosmos/cosmos-reason2/blob/main/LICENSE"
+title = "Cosmos-Reason2 source-code licence"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s4"
+url = "https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct"
+title = "Qwen3-VL-8B-Instruct base-model card"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s5"
+url = "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-license/"
+title = "NVIDIA Open Model License, current official version"
+kind = "primary"
+accessed = "2026-11-12"

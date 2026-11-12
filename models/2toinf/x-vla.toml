@@ -1,0 +1,126 @@
+id = "x-vla"
+name = "X-VLA (0.9B)"
+developer = "2toinf"
+roles = ["vla"]
+summary = "X-VLA uses learned soft prompts to adapt one flow-matching robot policy across embodiments. Its 0.9B model combines a Florence-2 vision-language encoder with an action transformer. Original and LeRobot-format base checkpoints are downloadable for adaptation to a chosen robot."
+lifecycle = "released"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+
+[modalities]
+input = ["text", "image", "robot-state"]
+output = ["actions"]
+sources = ["s1", "s3"]
+
+[access]
+type = ["open-weights"]
+notes = "Original foundation checkpoint: 2toINF/X-VLA-Pt. LeRobot adaptation: lerobot/xvla-base. Task-specific checkpoints are distinct from the base and require matching action processing."
+sources = ["s1", "s2", "s3"]
+
+[architecture]
+parameters = "0.9B"
+built_on = "Florence-2-large encoder with a soft-prompted flow-matching action transformer"
+frameworks = ["pytorch", "transformers", "lerobot"]
+sources = ["s1", "s3", "s4"]
+
+[licence]
+code = "apache-2.0"
+weights = "apache-2.0"
+training_data = "The paper's pretraining mixture is DROID, RoboMind and AGIBOT-beta. The foundation checkpoint card instead mentions Bridge Data. Their exact relationship, dataset revisions/licences and Florence-2's full FLD-5B data rights remain unverified."
+commercial_use = "unclear"
+commercial_use_reason = "Original code and both base-checkpoint cards declare Apache 2.0; the Florence-2-large backbone declares MIT. The conflicting training descriptions and incomplete data-rights chain prevent a blanket commercial-use conclusion."
+sources = ["s1", "s3", "s4", "s5", "s6"]
+
+[[licence.base_models]]
+name = "microsoft/Florence-2-large"
+licence = "mit"
+relation = "backbone"
+
+[robotics]
+action_output = "continuous-actions"
+notes = "Embodiment-specific soft prompts and action-space processing are required. The source card describes the original checkpoint's action mode as ee6d; LeRobot configuration and the community export must not be assumed identical."
+sources = ["s1", "s3"]
+
+[hardware]
+runs = "local"
+
+[[hardware.fit]]
+device = "jetson-orin-nano-8gb"
+status = "community-reported"
+result = "lerobot/xvla-base: p50 342.59 ms (2.92 Hz), 3.04 GB whole-board RAM. JetPack 7.2.1, TensorRT 10.16.2.10, mixed FP16 with FP32 accumulation, MAXN_SUPER, pinned clocks, desktop running. Three synthetic views at 224x224, 10 steps, chunk 30, ee6d/domain 0, 300-second runtime-only run. No physical task-success test."
+date = "2026-10-13"
+sources = ["s7", "s8"]
+
+[serving]
+runtimes = ["pytorch", "transformers", "lerobot"]
+sources = ["s1", "s3"]
+
+[[limitations]]
+text = "The paper describes DROID/RoboMind/AGIBOT pretraining; the X-VLA-Pt card says Bridge Data. Its code sample also loads X-VLA-WidowX instead of X-VLA-Pt. Confirm checkpoint provenance rather than treating these descriptions as interchangeable."
+sources = ["s1", "s4"]
+
+[[limitations]]
+text = "The authors report about a 1% performance drop after conversion to Hugging Face format, with cause under investigation. Do not assume converted and original outputs are identical."
+sources = ["s2"]
+
+[links]
+repo = "https://github.com/2toinf/X-VLA"
+paper = "https://arxiv.org/html/2510.10274v1"
+model_card = "https://huggingface.co/2toINF/X-VLA-Pt"
+
+[[sources]]
+id = "s1"
+url = "https://huggingface.co/2toINF/X-VLA-Pt"
+title = "X-VLA-Pt foundation checkpoint card"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s2"
+url = "https://github.com/2toinf/X-VLA"
+title = "Original X-VLA implementation and checkpoint list"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s3"
+url = "https://huggingface.co/lerobot/xvla-base"
+title = "LeRobot X-VLA base-checkpoint card"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s4"
+url = "https://arxiv.org/html/2510.10274v1"
+title = "X-VLA paper, architecture and pretraining data"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s5"
+url = "https://huggingface.co/microsoft/Florence-2-large"
+title = "Florence-2-large backbone card, MIT declaration and FLD-5B data"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s6"
+url = "https://github.com/2toinf/X-VLA/blob/main/LICENSE"
+title = "X-VLA source-code Apache 2.0 licence"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s7"
+url = "https://github.com/eetmie/jetson-orin-nano-vla"
+title = "Community Jetson benchmark table and method"
+kind = "community"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s8"
+url = "https://github.com/eetmie/jetson-orin-nano-vla/blob/main/results/xvla-base.json"
+title = "X-VLA Jetson result, 13 October 2026"
+kind = "community"
+accessed = "2026-11-12"

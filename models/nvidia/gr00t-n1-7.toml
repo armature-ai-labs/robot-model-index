@@ -1,0 +1,141 @@
+id = "gr00t-n1-7"
+name = "Isaac GR00T N1.7 (3B)"
+developer = "nvidia"
+roles = ["vla"]
+summary = "NVIDIA's 3B cross-embodiment robot policy conditions a flow-matching action model on language, camera frames and proprioception. Downloadable weights and reference code support post-training for a chosen robot. This entry covers N1.7, not earlier GR00T revisions."
+lifecycle = "released"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+
+[modalities]
+input = ["text", "image", "robot-state"]
+output = ["actions"]
+sources = ["s1"]
+
+[access]
+type = ["open-weights"]
+notes = "The public nvidia/GR00T-N1.7-3B checkpoint is the base route. The reference runtime requires separate Hub access to its Cosmos-Reason2 backbone. Task-specific checkpoints need their own embodiment configuration."
+sources = ["s1", "s2", "s3"]
+
+[architecture]
+parameters = "3B"
+built_on = "Cosmos-Reason2-2B vision-language backbone, based on Qwen3-VL-2B-Instruct, plus a flow-matching action transformer"
+frameworks = ["pytorch"]
+sources = ["s1", "s2", "s3"]
+
+[licence]
+code = "apache-2.0"
+weights = "nvidia-open-model-license"
+training_data = "The card describes 13 human/robot/simulated datasets without a complete per-dataset licence manifest. The repository also reports 20K hours of EgoScale human video. Full data and inherited Qwen training-data rights remain unverified."
+commercial_use = "unclear"
+commercial_use_reason = "NVIDIA permits commercial use under its model agreement and releases code under Apache 2.0. The Cosmos backbone adds the same custom agreement, while Qwen declares Apache 2.0. The complete training-data chain and applicable checkpoint terms version are not confirmed, so this is not full commercial clearance."
+sources = ["s1", "s2", "s3", "s4", "s5", "s8"]
+
+[[licence.base_models]]
+name = "Cosmos-Reason2-2B"
+licence = "nvidia-open-model-license"
+relation = "backbone"
+
+[[licence.base_models]]
+name = "Qwen3-VL-2B-Instruct (through Cosmos-Reason2-2B)"
+licence = "apache-2.0"
+relation = "initialised-from"
+
+[robotics]
+action_output = "continuous-actions"
+action_chunk = 40
+max_state_dim = 132
+max_action_dim = 132
+notes = "The reference N1.7 interface uses a 40-step horizon and padded state/action dimensions of 132. Actions depend on the robot embodiment and degrees of freedom. These padded widths do not describe a robot's physical degrees of freedom; sampling and preprocessing still depend on the checkpoint configuration."
+sources = ["s1", "s2"]
+
+[hardware]
+runs = "local"
+
+[[hardware.fit]]
+device = "jetson-orin-nano-8gb"
+status = "community-reported"
+result = "nvidia/GR00T-N1.7-3B: p50 273.70 ms (3.66 Hz), 5.78 GB whole-board RAM. JetPack 7.2.1, TensorRT 10.16.2.10, mixed FP16 with FP32 accumulation, MAXN_SUPER and pinned clocks, desktop running, 300 seconds. Three synthetic camera views with two temporal frames/view, 4 denoising steps, chunk 40, xdof_relative_eef_relative_joint embodiment. Runtime inference only, not robot task success."
+date = "2026-10-13"
+sources = ["s6", "s7"]
+
+[serving]
+runtimes = ["pytorch"]
+sources = ["s1"]
+
+[[limitations]]
+text = "The card identifies Cosmos-Reason2-2B as the backbone, but its generic architecture paragraph still names SigLIP2 and T5. The repository confirms Cosmos-Reason2/Qwen3-VL. Treat the older paragraph as an unresolved documentation conflict."
+sources = ["s1", "s2"]
+
+[[limitations]]
+text = "The model card says N1.7 EA while the repository says General Availability. Its Fractal subsection also links the Bridge dataset. Exact checkpoint revision, release day and fine-tune-specific data provenance need confirmation."
+sources = ["s1", "s2"]
+
+[[limitations]]
+text = "The Cosmos-Reason2 Hub gate labels its inline agreement 23 September 2025; the linked NVIDIA agreement is modified 24 October 2025. Confirm the applicable terms delivered with the backbone."
+sources = ["s3", "s8"]
+
+[[limitations]]
+text = "The reference runtime asks for at least 16 GB GPU memory. The community 8 GB result uses a separate converted TensorRT runtime and is not a validation of the standard installation on that board."
+sources = ["s2", "s6"]
+
+[links]
+repo = "https://github.com/NVIDIA/Isaac-GR00T"
+model_card = "https://huggingface.co/nvidia/GR00T-N1.7-3B"
+
+[[sources]]
+id = "s1"
+url = "https://huggingface.co/nvidia/GR00T-N1.7-3B"
+title = "GR00T N1.7 3B model card"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s2"
+url = "https://github.com/NVIDIA/Isaac-GR00T"
+title = "Isaac GR00T N1.7 reference repository"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s3"
+url = "https://huggingface.co/nvidia/Cosmos-Reason2-2B"
+title = "Cosmos-Reason2-2B model card and access agreement"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s4"
+url = "https://huggingface.co/Qwen/Qwen3-VL-2B-Instruct"
+title = "Qwen3-VL-2B-Instruct backbone model card"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s5"
+url = "https://github.com/NVIDIA/Isaac-GR00T/blob/main/LICENSE"
+title = "Isaac GR00T code licence"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s6"
+url = "https://github.com/eetmie/jetson-orin-nano-vla"
+title = "Community Jetson VLA benchmark table and method"
+kind = "community"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s7"
+url = "https://github.com/eetmie/jetson-orin-nano-vla/blob/main/results/groot-n17-base.json"
+title = "GR00T N1.7 Jetson run, 13 October 2026"
+kind = "community"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s8"
+url = "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-license/"
+title = "NVIDIA Open Model License, current official version"
+kind = "primary"
+accessed = "2026-11-12"
