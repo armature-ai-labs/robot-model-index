@@ -1,0 +1,67 @@
+id = "cosmos-3"
+name = "Cosmos 3"
+developer = "nvidia"
+roles = ["world-model", "world-action-model", "embodied-reasoning"]
+summary = "NVIDIA's Cosmos 3 family combines visual reasoning with generation of images, video, sound and actions. Super, Nano and Edge are different model sizes with different runtime limits. Robot-policy checkpoints require an embodiment-specific interface; a generated video alone is not a robot controller."
+release_date = "2026-05-31"
+lifecycle = "released"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+sources = [
+  { id = "s1", url = "https://raw.githubusercontent.com/NVIDIA/cosmos/main/README.md", title = "Cosmos 3 family, checkpoints and current licence statement", kind = "primary", accessed = "2026-11-12" },
+  { id = "s2", url = "https://raw.githubusercontent.com/NVIDIA/cosmos/main/LICENSE", title = "Cosmos OpenMDW-1.1 licence", kind = "primary", accessed = "2026-11-12" },
+  { id = "s3", url = "https://huggingface.co/nvidia/Cosmos3-Nano", title = "Nano model card, release date and training-data description", kind = "primary", accessed = "2026-11-12" },
+  { id = "s4", url = "https://huggingface.co/nvidia/Cosmos3-Super", title = "Super model card and generation limits", kind = "primary", accessed = "2026-11-12" },
+  { id = "s5", url = "https://huggingface.co/nvidia/Cosmos3-Edge", title = "Edge model card, separate July release and August update", kind = "primary", accessed = "2026-11-12" },
+  { id = "s6", url = "https://docs.nvidia.com/cosmos/latest/cosmos3/model_reference.html", title = "Cosmos 3 runtime interfaces and action trajectories", kind = "primary", accessed = "2026-11-12" },
+  { id = "s7", url = "https://arxiv.org/html/2606.02800v1", title = "Cosmos 3 technical report, base lineage and DROID policy", kind = "primary", accessed = "2026-11-12" },
+]
+
+[access]
+type = ["open-weights"]
+notes = "Public Hugging Face base checkpoints and task-specific weights. The repo also advertises NVIDIA-hosted demos, but this review could not confirm usable hosted access or pricing, so no public API provider is asserted."
+sources = ["s1", "s3", "s4", "s5"]
+
+[architecture]
+parameters = "Super 64B, Nano 16B, Edge 4B, as specified by NVIDIA"
+built_on = "Mixture-of-Transformers reasoner/generator towers. Paper: Nano and Super initialized from Qwen3-VL 8B/32B weights; Edge uses a transformer trained from scratch. Exact upstream checkpoint identities remain unverified."
+frameworks = ["pytorch", "diffusers", "transformers"]
+sources = ["s1", "s7"]
+
+[licence]
+code = "openmdw-1.1"
+weights = "openmdw-1.1"
+training_data = "NVIDIA describes public, private and synthetic multimodal data, including synthetic images/captions from other models. Per-component grants, synthetic teacher terms and exact upstream Qwen3-VL weight identities have not been fully checked."
+commercial_use = "unclear"
+commercial_use_reason = "Current code and model cards use permissive OpenMDW-1.1 and NVIDIA states commercial use is supported. The index's full-chain review is still incomplete: exact upstream VLM grants and all private/public/synthetic data rights are not independently verified. The vendor's permission statement is retained without treating it as full-chain clearance."
+sources = ["s1", "s2", "s3", "s4", "s5", "s7"]
+base_models = [
+  { name = "Qwen3-VL 8B (Nano initialization; exact checkpoint unverified)", licence = "unverified", relation = "initialised-from" },
+  { name = "Qwen3-VL 32B (Super initialization; exact checkpoint unverified)", licence = "unverified", relation = "initialised-from" },
+]
+
+[robotics]
+action_output = "continuous-actions"
+notes = "Generator accepts text, images/video, sound and action trajectories and generates visual/audio/action outputs; Edge supports fewer modes. Action conditioning is distinct from predicting actions. The paper's Nano-Policy-DROID predicts 32 future absolute joint-position actions plus RGB video from robot state and three camera views. Other integrations need their own embodiment mapping. Optional structured modalities are omitted because the current schema has no action-trajectory input value."
+sources = ["s6", "s7"]
+
+[hardware]
+runs = "local"
+
+[serving]
+runtimes = ["diffusers", "transformers", "vllm-omni", "sglang", "tensorrt-llm", "nvidia-nim"]
+sources = ["s1", "s6"]
+
+[[limitations]]
+text = "Published constraints differ: the maintained model reference lists 5-300 generated frames, while the Nano/Super cards describe up to 400. Those cards say only BF16 is tested, while the repository also links separate FP8 checkpoints. Do not transfer a limit or validation result across artifacts without checking its runtime/version."
+sources = ["s1", "s3", "s4", "s6"]
+
+[[limitations]]
+text = "May 2026 is the initial Nano/Super release. Edge's card dates its release to 20 July 2026 and records a generator update on 25 August. A family release date does not identify the checkpoint revision used for an experiment."
+sources = ["s3", "s4", "s5"]
+
+[links]
+repo = "https://github.com/NVIDIA/cosmos"
+model_card = "https://huggingface.co/nvidia/Cosmos3-Nano"
+paper = "https://arxiv.org/html/2606.02800v1"

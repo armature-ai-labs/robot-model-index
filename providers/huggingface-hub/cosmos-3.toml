@@ -1,0 +1,29 @@
+model = "cosmos-3"
+provider = "huggingface-hub"
+provider_name = "Hugging Face Hub (NVIDIA Cosmos 3 base family)"
+provider_model_id = "nvidia/Cosmos3-Nano"
+kind = "weights-download"
+access = "public"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+notes = "Default record is Nano (16B). Super and Edge are different model sizes, not equivalent hardware profiles. Optional guardrail artifacts used in the documented quickstart have a separate access gate."
+sources = [
+  { id = "s1", url = "https://huggingface.co/nvidia/Cosmos3-Nano", title = "Nano weights, licence and release date", kind = "primary", accessed = "2026-11-12" },
+  { id = "s2", url = "https://huggingface.co/nvidia/Cosmos3-Super", title = "Super weights, licence and release date", kind = "primary", accessed = "2026-11-12" },
+  { id = "s3", url = "https://huggingface.co/nvidia/Cosmos3-Edge", title = "Edge weights, licence and revision note", kind = "primary", accessed = "2026-11-12" },
+  { id = "s4", url = "https://raw.githubusercontent.com/NVIDIA/cosmos/main/README.md", title = "Quickstart's separate guardrail-access instructions", kind = "primary", accessed = "2026-11-12" },
+]
+
+[[variants]]
+id = "nvidia/Cosmos3-Super"
+notes = "64B base model, initial release 31 May 2026."
+
+[[variants]]
+id = "nvidia/Cosmos3-Edge"
+notes = "4B base model, release 20 July 2026, generator updated 25 August. It supports fewer input/output modes than Nano/Super."
+
+[[pricing]]
+unit = "free"
+notes = "Downloadable base weights, not hosted NIM inference pricing. User supplies compute; no download-pricing start date is published."
+sources = ["s1", "s2", "s3", "s4"]

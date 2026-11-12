@@ -1,0 +1,77 @@
+id = "molmoact2"
+name = "MolmoAct2"
+developer = "allenai"
+roles = ["vla"]
+summary = "Ai2's robot policy combines its Molmo2-ER vision-language backbone with a flow-matching action expert. The public foundation checkpoint supports further adaptation; separate policies target DROID, bimanual YAM, SO-100/101 and LIBERO. The Think variant adds depth reasoning and is not interchangeable with the standard checkpoint."
+release_date = "2026-05-05"
+lifecycle = "released"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+sources = [
+  { id = "s1", url = "https://raw.githubusercontent.com/allenai/molmoact2/main/README.md", title = "MolmoAct2 developer guide, release and licence statement", kind = "primary", accessed = "2026-11-12" },
+  { id = "s2", url = "https://huggingface.co/allenai/MolmoAct2", title = "MolmoAct2 foundation checkpoint card", kind = "primary", accessed = "2026-11-12" },
+  { id = "s3", url = "https://raw.githubusercontent.com/allenai/molmoact2/main/LICENSE", title = "MolmoAct2 Apache 2.0 code licence", kind = "primary", accessed = "2026-11-12" },
+  { id = "s4", url = "https://huggingface.co/allenai/Molmo2-ER/raw/main/README.md", title = "Molmo2-ER backbone, licence and training mixture", kind = "primary", accessed = "2026-11-12" },
+  { id = "s5", url = "https://huggingface.co/allenai/Molmo2-4B", title = "Molmo2-4B base-model and training-use conditions", kind = "primary", accessed = "2026-11-12" },
+  { id = "s6", url = "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507", title = "Qwen language backbone Apache 2.0 card", kind = "primary", accessed = "2026-11-12" },
+  { id = "s7", url = "https://huggingface.co/google/siglip2-so400m-patch14-384", title = "SigLIP 2 vision backbone Apache 2.0 card", kind = "primary", accessed = "2026-11-12" },
+  { id = "s8", url = "https://huggingface.co/allenai/MolmoAct2/blob/main/config.json", title = "Released MolmoAct2 dimensions and flow defaults", kind = "primary", accessed = "2026-11-12" },
+  { id = "s9", url = "https://allenai.org/blog/molmoact2", title = "Ai2 release announcement, 5 May 2026", kind = "primary", accessed = "2026-11-12" },
+]
+
+[modalities]
+input = ["text", "image", "robot-state"]
+output = ["actions"]
+sources = ["s1", "s2"]
+
+[access]
+type = ["open-weights"]
+notes = "The foundation checkpoint includes normalization metadata, but the card directs deployment users to embodiment-specific fine-tuned policies."
+sources = ["s2"]
+
+[architecture]
+built_on = "Molmo2-ER, derived from Molmo2-4B (Qwen3-4B-Instruct and SigLIP 2), with per-layer KV conditioning of a continuous action expert"
+frameworks = ["pytorch", "transformers", "lerobot"]
+sources = ["s1", "s2", "s4", "s5"]
+
+[licence]
+code = "apache-2.0"
+weights = "apache-2.0"
+training_data = "Developer publishes robotics and embodied-reasoning dataset collections. The inherited Molmo2-4B card explicitly warns that some third-party training datasets allow academic/non-commercial research only; component rights across the full chain remain unchecked."
+commercial_use = "unclear"
+commercial_use_reason = "The developer calls the model Apache 2.0, as are the reviewed backbone labels, but also describes research/educational intended use. More concretely, the Molmo2 ancestor warns of non-commercial training datasets. Their downstream applicability and the complete dataset chain need review before claiming commercial clearance."
+sources = ["s1", "s3", "s4", "s5", "s6", "s7"]
+base_models = [
+  { name = "Molmo2-ER", licence = "apache-2.0", relation = "initialised-from" },
+  { name = "Molmo2-4B (training-data restrictions remain)", licence = "apache-2.0", relation = "backbone" },
+  { name = "Qwen3-4B-Instruct-2507", licence = "apache-2.0", relation = "backbone" },
+  { name = "SigLIP 2 So400m", licence = "apache-2.0", relation = "backbone" },
+]
+
+[robotics]
+action_output = "continuous-actions"
+default_denoising_steps = 10
+max_action_dim = 32
+notes = "The foundation config supports both discrete action tokens and a continuous expert. This entry describes continuous control. Config caps the action horizon at 30 and masks padded action dimensions; the execution horizon and normalization must match the selected policy and robot."
+sources = ["s2", "s8"]
+
+[hardware]
+runs = "local"
+
+[serving]
+runtimes = ["transformers", "lerobot"]
+sources = ["s1", "s2"]
+
+[[limitations]]
+text = "Apache 2.0 model wording and research/education intended-use wording coexist in the developer README. The ancestor Molmo2 card additionally warns of third-party academic/non-commercial data. This entry does not resolve those statements into commercial permission."
+sources = ["s1", "s5"]
+
+[[limitations]]
+text = "The README has a deployment update dated 2025/05/06, while its release update and Ai2 announcement date MolmoAct2 to May 2026. The release_date here follows the explicit release announcement; the inconsistent update date is retained as a source issue."
+sources = ["s1", "s9"]
+
+[links]
+homepage = "https://allenai.org/blog/molmoact2"
+repo = "https://github.com/allenai/molmoact2"
+model_card = "https://huggingface.co/allenai/MolmoAct2"

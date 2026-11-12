@@ -1,0 +1,74 @@
+id = "lingbot-va"
+name = "LingBot-VA (original shared-backbone release)"
+developer = "robbyant"
+roles = ["world-action-model"]
+summary = "Robbyant's autoregressive diffusion policy predicts video and continuous robot actions in interleaved streams. This entry covers the original Wan2.2-backed shared model, its public base checkpoint and documented post-training route."
+release_date = "2026-01-29"
+lifecycle = "released"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+sources = [
+  { id = "s1", url = "https://raw.githubusercontent.com/Robbyant/lingbot-va/main/README.md", title = "LingBot-VA developer guide, release and checkpoint table", kind = "primary", accessed = "2026-11-12" },
+  { id = "s2", url = "https://huggingface.co/robbyant/lingbot-va-base", title = "Original shared-backbone base checkpoint card", kind = "primary", accessed = "2026-11-12" },
+  { id = "s3", url = "https://raw.githubusercontent.com/Robbyant/lingbot-va/main/LICENSE.txt", title = "LingBot-VA Apache 2.0 code licence", kind = "primary", accessed = "2026-11-12" },
+  { id = "s4", url = "https://arxiv.org/html/2601.21998v2", title = "Original LingBot-VA paper, architecture and training data", kind = "primary", accessed = "2026-11-12" },
+  { id = "s5", url = "https://huggingface.co/Wan-AI/Wan2.2-TI2V-5B", title = "Wan2.2 5B backbone and Apache 2.0 metadata", kind = "primary", accessed = "2026-11-12" },
+  { id = "s6", url = "https://huggingface.co/robbyant/lingbot-va-base/blob/main/text_encoder/config.json", title = "Released base checkpoint identifies google/umt5-xxl", kind = "primary", accessed = "2026-11-12" },
+  { id = "s7", url = "https://huggingface.co/google/umt5-xxl", title = "UMT5-XXL Apache 2.0 card and mC4 pretraining", kind = "primary", accessed = "2026-11-12" },
+  { id = "s8", url = "https://huggingface.co/datasets/robbyant/robotwin-clean-and-aug-lerobot", title = "Optional RoboTwin post-training data, CC BY-NC-SA 4.0", kind = "primary", accessed = "2026-11-12" },
+  { id = "s9", url = "https://raw.githubusercontent.com/Robbyant/lingbot-va/main/wan_va/configs/va_robotwin_cfg.py", title = "Current RoboTwin action/video inference settings", kind = "primary", accessed = "2026-11-12" },
+]
+
+[modalities]
+input = ["text", "image", "video", "robot-state"]
+output = ["video", "actions"]
+sources = ["s4"]
+
+[access]
+type = ["open-weights"]
+notes = "Shared-backbone base weights are on Hugging Face; the developer also lists a ModelScope mirror and separate RoboTwin/LIBERO-Long post-trained checkpoints."
+sources = ["s1", "s2"]
+
+[architecture]
+parameters = "5.3B video/action transformer in the paper, excluding the frozen text encoder and VAE"
+built_on = "Wan2.2-5B video stream and a smaller action stream, Wan causal VAE, frozen UMT5-XXL text encoder"
+frameworks = ["pytorch", "diffusers"]
+sources = ["s2", "s4", "s6"]
+
+[licence]
+code = "apache-2.0"
+weights = "apache-2.0"
+training_data = "The paper describes about 16K hours of mixed public/internal robot data. Component pretraining rights, including Wan and UMT5 data, are not fully checked. The optional released RoboTwin post-training dataset separately specifies CC BY-NC-SA 4.0."
+commercial_use = "unclear"
+commercial_use_reason = "Code and base-weight labels are Apache 2.0, as are the reviewed Wan and UMT5 labels. That does not verify all pretraining data rights. In addition, the documented RoboTwin adaptation route uses a dataset with explicit non-commercial/share-alike terms; do not infer unrestricted commercial use for every adapted policy."
+sources = ["s2", "s3", "s4", "s5", "s6", "s7", "s8"]
+base_models = [
+  { name = "Wan2.2-TI2V-5B video backbone and VAE", licence = "apache-2.0", relation = "initialised-from" },
+  { name = "google/umt5-xxl", licence = "apache-2.0", relation = "backbone" },
+]
+
+[robotics]
+action_output = "continuous-actions"
+notes = "The model predicts future video and actions jointly. Original-paper Euler settings are 3 video steps and 10 action steps; current RoboTwin config instead lists 25 video and 50 action inference steps. No family-wide denoising default is asserted."
+sources = ["s4", "s9"]
+
+[hardware]
+runs = "local"
+
+[serving]
+protocols = ["websocket"]
+sources = ["s1"]
+
+[[limitations]]
+text = "Installation instructions disagree: the repository pins Transformers 4.55.2, while the base Hub card pins 5.0.0. The paper's denoising schedule also differs from the current RoboTwin configuration. Pin and test a matching checkpoint/code/config combination."
+sources = ["s1", "s2", "s4", "s9"]
+
+[[limitations]]
+text = "The base model's Apache label does not replace the CC BY-NC-SA 4.0 terms on the separate RoboTwin post-training dataset. That dataset is not asserted to be the base model's complete pretraining corpus."
+sources = ["s2", "s8"]
+
+[links]
+repo = "https://github.com/Robbyant/lingbot-va"
+model_card = "https://huggingface.co/robbyant/lingbot-va-base"
+paper = "https://arxiv.org/html/2601.21998v2"

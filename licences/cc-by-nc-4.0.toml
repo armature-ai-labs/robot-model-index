@@ -1,0 +1,24 @@
+id = "cc-by-nc-4.0"
+name = "Creative Commons Attribution-NonCommercial 4.0 International"
+url = "https://creativecommons.org/licenses/by-nc/4.0/legalcode.en"
+version_checked = "4.0 International legal code, accessed 12 November 2026"
+type = "non-commercial"
+commercial_use = "no"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+sources = [
+  { id = "s1", url = "https://creativecommons.org/licenses/by-nc/4.0/legalcode.en", title = "CC BY-NC 4.0 legal code", kind = "primary", accessed = "2026-11-12" },
+]
+
+[[obligations]]
+text = "The licence grants reproduction, sharing and adaptation only for non-commercial purposes. Commercial use needs another applicable permission."
+sources = ["s1"]
+
+[[obligations]]
+text = "When sharing, retain the supplied creator attribution, copyright and licence notices, identify modifications, and link or supply the licence as required. Do not impose restrictions that prevent recipients exercising the licensed rights."
+sources = ["s1"]
+
+[[obligations]]
+text = "The licence does not grant all possible patent, trademark, privacy or publicity rights and provides no warranties. This is a summary of this licence alone, not legal advice or a complete model-rights review."
+sources = ["s1"]
