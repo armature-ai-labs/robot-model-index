@@ -1,0 +1,19 @@
+model = "whisper-large-v3-turbo"
+provider = "openai-download"
+provider_name = "OpenAI Whisper package checkpoint downloader"
+provider_model_id = "large-v3-turbo"
+kind = "weights-download"
+access = "public"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+notes = "The official Python package maps large-v3-turbo and turbo to the same published checkpoint URL and checks its SHA-256. This is a weight download for local inference, not the OpenAI transcription API."
+sources = [
+  { id = "s1", url = "https://raw.githubusercontent.com/openai/whisper/main/whisper/__init__.py", title = "Official checkpoint URLs, aliases and checksum verification", kind = "primary", accessed = "2026-11-12" },
+  { id = "s2", url = "https://raw.githubusercontent.com/openai/whisper/main/README.md", title = "Official local package usage and licence", kind = "primary", accessed = "2026-11-12" },
+]
+
+[[pricing]]
+unit = "free"
+notes = "Public checkpoint download through the package; compute supplied by the user. No download-pricing start date is published."
+sources = ["s1", "s2"]

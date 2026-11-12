@@ -1,0 +1,28 @@
+id = "llama-2-community"
+name = "Llama 2 Community License Agreement"
+url = "https://raw.githubusercontent.com/meta-llama/llama/main/LICENSE"
+version_checked = "Llama 2 version release date 18 July 2023"
+type = "custom-with-use-restrictions"
+commercial_use = "conditional"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+sources = [
+  { id = "s1", url = "https://raw.githubusercontent.com/meta-llama/llama/main/LICENSE", title = "Meta Llama 2 Community License Agreement", kind = "primary", accessed = "2026-11-12" },
+]
+
+[[obligations]]
+text = "When sharing Llama Materials or derivatives, give recipients the agreement and preserve the required Llama 2 copyright attribution in a Notice file."
+sources = ["s1"]
+
+[[obligations]]
+text = "Follow applicable law and the incorporated Acceptable Use Policy. Do not use the materials or their outputs to improve another large language model, except Llama 2 or its derivatives."
+sources = ["s1"]
+
+[[obligations]]
+text = "If the licensee or its affiliates exceeded 700 million monthly active users in the month preceding the Llama 2 release date, separate permission from Meta is required. The agreement has an integrated end-user-product exception to this threshold clause."
+sources = ["s1"]
+
+[[obligations]]
+text = "The agreement grants limited rights, provides no warranties, and contains termination conditions, including specified intellectual-property litigation. Read the agreement for the complete conditions."
+sources = ["s1"]

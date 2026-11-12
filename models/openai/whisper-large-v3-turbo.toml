@@ -1,0 +1,68 @@
+id = "whisper-large-v3-turbo"
+name = "Whisper large-v3-turbo"
+developer = "openai"
+roles = ["speech-asr"]
+summary = "OpenAI's multilingual speech recognizer prunes Whisper large-v3 to four decoder layers and fine-tunes it for transcription. It produces text from audio. A robot application would need a separate planner and controller to turn a transcript into an action."
+lifecycle = "released"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+sources = [
+  { id = "s1", url = "https://github.com/openai/whisper/discussions/2363", title = "OpenAI maintainer's turbo release announcement", kind = "primary", accessed = "2026-11-12" },
+  { id = "s2", url = "https://huggingface.co/openai/whisper-large-v3-turbo", title = "Whisper large-v3-turbo checkpoint card", kind = "primary", accessed = "2026-11-12" },
+  { id = "s3", url = "https://raw.githubusercontent.com/openai/whisper/main/README.md", title = "Whisper usage and code/weight licence statement", kind = "primary", accessed = "2026-11-12" },
+  { id = "s4", url = "https://raw.githubusercontent.com/openai/whisper/main/LICENSE", title = "OpenAI Whisper MIT licence", kind = "primary", accessed = "2026-11-12" },
+  { id = "s5", url = "https://huggingface.co/openai/whisper-large-v3", title = "Parent large-v3 model card, data and Apache metadata", kind = "primary", accessed = "2026-11-12" },
+  { id = "s6", url = "https://raw.githubusercontent.com/openai/whisper/main/model-card.md", title = "Whisper model card, parameter count and limitations", kind = "primary", accessed = "2026-11-12" },
+]
+
+[modalities]
+input = ["audio"]
+output = ["text"]
+sources = ["s2", "s3"]
+
+[access]
+type = ["open-weights"]
+notes = "Download openai/whisper-large-v3-turbo on Hugging Face or load turbo with the official openai-whisper package. No hosted API route is asserted here."
+sources = ["s2", "s3"]
+
+[architecture]
+parameters = "Unresolved: README says 809M; repository model card says 798M."
+built_on = "Whisper large-v3, pruned from 32 to 4 decoder layers, then fine-tuned (not distilled)"
+frameworks = ["pytorch", "transformers"]
+sources = ["s1", "s2", "s3", "s6"]
+
+[licence]
+code = "mit"
+weights = "mit"
+training_data = "Maintainer says turbo uses large-v3 multilingual transcription data for two additional epochs, excluding translation data. The parent card describes weakly labelled and pseudo-labelled audio; individual source rights are not disclosed there."
+commercial_use = "unclear"
+commercial_use_reason = "The official README licenses code and weights under MIT, as does turbo Hub metadata. The parent large-v3 Hub metadata instead says Apache 2.0, and the full training-data licence chain is not published in the reviewed sources. Record those gaps rather than inferring complete commercial clearance."
+sources = ["s1", "s2", "s3", "s4", "s5"]
+base_models = [
+  { name = "Whisper large-v3 (Apache 2.0 on Hub; MIT in repository)", licence = "unverified", relation = "fine-tuned-from" },
+]
+
+[robotics]
+action_output = "none"
+notes = "Audio transcription only; this entry claims no robot-control benchmark or Armature deployment result."
+sources = ["s2", "s3"]
+
+[hardware]
+runs = "local"
+
+[[limitations]]
+text = "Turbo was not fine-tuned for translation. The official instructions say it can return the original language even when translation is requested."
+sources = ["s1", "s3"]
+
+[[limitations]]
+text = "The generic Whisper card warns of hallucinated or repeated text and uneven language accuracy. Robot commands need their own evaluation rather than treating a transcript as a validated instruction."
+sources = ["s6"]
+
+[[limitations]]
+text = "Primary sources disagree: turbo parameter counts are 809M in the README and 798M in the model card; the card dates turbo to September 2024 while the release announcement is 1 October 2024. No single release_date is asserted. The parent Hub Apache 2.0 label also differs from the repository's MIT code-and-weights statement."
+sources = ["s1", "s3", "s5", "s6"]
+
+[links]
+repo = "https://github.com/openai/whisper"
+model_card = "https://huggingface.co/openai/whisper-large-v3-turbo"

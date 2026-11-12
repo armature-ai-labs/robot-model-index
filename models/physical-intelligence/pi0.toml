@@ -1,0 +1,70 @@
+id = "pi0"
+name = "π0 (pi0)"
+developer = "physical-intelligence"
+roles = ["vla"]
+summary = "Physical Intelligence's flow-matching robot policy takes images, language and robot state and generates continuous action chunks. The openpi release includes a base checkpoint for adaptation and task-specific checkpoints. π0-FAST is a different, autoregressive policy and is not this entry."
+lifecycle = "released"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+sources = [
+  { id = "s1", url = "https://raw.githubusercontent.com/Physical-Intelligence/openpi/main/README.md", title = "openpi README and checkpoint table", kind = "primary", accessed = "2026-11-12" },
+  { id = "s2", url = "https://arxiv.org/html/2410.24164v3", title = "π0: A Vision-Language-Action Flow Model for General Robot Control", kind = "primary", accessed = "2026-11-12" },
+  { id = "s3", url = "https://raw.githubusercontent.com/Physical-Intelligence/openpi/main/LICENSE", title = "openpi Apache 2.0 licence", kind = "primary", accessed = "2026-11-12" },
+  { id = "s4", url = "https://huggingface.co/google/paligemma-3b-pt-224", title = "PaliGemma model card and Gemma licence", kind = "primary", accessed = "2026-11-12" },
+  { id = "s5", url = "https://raw.githubusercontent.com/Physical-Intelligence/openpi/main/src/openpi/models/pi0_config.py", title = "openpi Pi0Config defaults", kind = "primary", accessed = "2026-11-12" },
+  { id = "s6", url = "https://raw.githubusercontent.com/Physical-Intelligence/openpi/main/LICENSE_GEMMA.txt", title = "Gemma terms bundled with openpi, February 2024", kind = "primary", accessed = "2026-11-12" },
+  { id = "s7", url = "https://ai.google.dev/gemma/terms", title = "Current Gemma Terms of Use, April 2026", kind = "primary", accessed = "2026-11-12" },
+  { id = "s8", url = "https://huggingface.co/google/siglip-so400m-patch14-224", title = "SigLIP backbone Apache 2.0 metadata", kind = "primary", accessed = "2026-11-12" },
+]
+
+[modalities]
+input = ["text", "image", "robot-state"]
+output = ["actions"]
+sources = ["s2", "s5"]
+
+[access]
+type = ["open-weights"]
+notes = "openpi downloads pi0_base and task-specific checkpoints from Physical Intelligence's public storage. A checkpoint must match the intended robot and task."
+sources = ["s1"]
+
+[architecture]
+built_on = "PaliGemma vision-language backbone with a separate flow-matching action expert"
+frameworks = ["jax", "pytorch"]
+sources = ["s1", "s2"]
+
+[licence]
+code = "apache-2.0"
+weights = "not-stated"
+training_data = "The paper describes internal robot demonstrations plus Open X-Embodiment data. Component dataset rights and the backbone's complete training-data chain have not been verified."
+commercial_use = "unclear"
+commercial_use_reason = "openpi code is Apache 2.0, but the reviewed checkpoint table gives no separate checkpoint licence. PaliGemma brings Gemma use and redistribution conditions. Training-data rights remain unverified, so the permissive code licence does not establish commercial clearance for the full model."
+sources = ["s1", "s2", "s3", "s4", "s6", "s7", "s8"]
+base_models = [
+  { name = "PaliGemma", licence = "gemma-terms-of-use", relation = "initialised-from" },
+  { name = "Gemma 2B (PaliGemma language backbone)", licence = "gemma-terms-of-use", relation = "backbone" },
+  { name = "SigLIP-So400m/14 (PaliGemma image backbone)", licence = "apache-2.0", relation = "backbone" },
+]
+
+[robotics]
+action_output = "continuous-actions"
+action_chunk = 50
+max_state_dim = 32
+max_action_dim = 32
+notes = "These are openpi Pi0Config defaults, including padded state/action dimensions, not a claim that every robot has 32 joints."
+sources = ["s5"]
+
+[hardware]
+runs = "local"
+
+[[limitations]]
+text = "The authors warn that released checkpoints may not work on a new robot. Their openpi setup supports Ubuntu 22.04; this entry contains no Armature hardware or task-success measurements."
+sources = ["s1"]
+
+[[limitations]]
+text = "openpi bundles Gemma terms dated 21 February 2024, while Google's current terms are dated 1 April 2026. The applicable version for a particular checkpoint/use needs review; the copies should not be treated as identical."
+sources = ["s6", "s7"]
+
+[links]
+repo = "https://github.com/Physical-Intelligence/openpi"
+paper = "https://arxiv.org/html/2410.24164v3"

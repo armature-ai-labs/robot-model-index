@@ -1,0 +1,19 @@
+model = "openvla-oft"
+provider = "huggingface-hub"
+provider_name = "Hugging Face Hub (author-released OFT checkpoints)"
+provider_model_id = "moojink/openvla-7b-oft-finetuned-libero-spatial"
+kind = "weights-download"
+access = "public"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+notes = "LIBERO-Spatial policy. Author documentation also links Object, Goal, LIBERO-10 and combined-suite policies; their licences and task settings should be reviewed before choosing another checkpoint."
+sources = [
+  { id = "s1", url = "https://huggingface.co/moojink/openvla-7b-oft-finetuned-libero-spatial", title = "Author checkpoint card and public files", kind = "primary", accessed = "2026-11-12" },
+  { id = "s2", url = "https://raw.githubusercontent.com/moojink/openvla-oft/main/LIBERO.md", title = "Author checkpoint catalogue and auto-download instructions", kind = "primary", accessed = "2026-11-12" },
+]
+
+[[pricing]]
+unit = "free"
+notes = "Downloadable weights, not a hosted inference quote. User supplies compute. No download-pricing start date is published."
+sources = ["s1", "s2"]
