@@ -1,0 +1,84 @@
+id = "openvla-oft"
+name = "OpenVLA-OFT"
+developer = "stanford"
+roles = ["vla"]
+summary = "Robot policy from Moo Jin Kim, Chelsea Finn and Percy Liang at Stanford. It fine-tunes OpenVLA using parallel decoding, action chunks and continuous actions with L1 regression. Released LIBERO policies use camera images, language and proprioception; ALOHA experiments use a separate OFT+ configuration."
+lifecycle = "released"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+sources = [
+  { id = "s1", url = "https://openvla-oft.github.io/", title = "OpenVLA-OFT author project page", kind = "primary", accessed = "2026-11-12" },
+  { id = "s2", url = "https://raw.githubusercontent.com/moojink/openvla-oft/main/README.md", title = "OpenVLA-OFT README and inference example", kind = "primary", accessed = "2026-11-12" },
+  { id = "s3", url = "https://raw.githubusercontent.com/moojink/openvla-oft/main/LIBERO.md", title = "LIBERO checkpoints, evaluation settings and results", kind = "primary", accessed = "2026-11-12" },
+  { id = "s4", url = "https://raw.githubusercontent.com/moojink/openvla-oft/main/LICENSE", title = "OpenVLA-OFT MIT licence", kind = "primary", accessed = "2026-11-12" },
+  { id = "s5", url = "https://huggingface.co/moojink/openvla-7b-oft-finetuned-libero-spatial", title = "Released LIBERO-Spatial checkpoint card", kind = "primary", accessed = "2026-11-12" },
+  { id = "s6", url = "https://huggingface.co/openvla/openvla-7b", title = "OpenVLA base checkpoint and backbone description", kind = "primary", accessed = "2026-11-12" },
+  { id = "s7", url = "https://raw.githubusercontent.com/openvla/openvla/main/README.md", title = "OpenVLA base-model licence restrictions", kind = "primary", accessed = "2026-11-12" },
+  { id = "s8", url = "https://raw.githubusercontent.com/meta-llama/llama/main/LICENSE", title = "Llama 2 Community License Agreement", kind = "primary", accessed = "2026-11-12" },
+  { id = "s9", url = "https://huggingface.co/datasets/openvla/modified_libero_rlds", title = "Modified LIBERO dataset card", kind = "primary", accessed = "2026-11-12" },
+  { id = "s10", url = "https://raw.githubusercontent.com/TRI-ML/prismatic-vlms/main/README.md", title = "Prismatic VLM backbone and data restrictions", kind = "primary", accessed = "2026-11-12" },
+  { id = "s11", url = "https://huggingface.co/google/siglip-so400m-patch14-224", title = "SigLIP backbone card, Apache 2.0 metadata", kind = "primary", accessed = "2026-11-12" },
+  { id = "s12", url = "https://raw.githubusercontent.com/facebookresearch/dinov2/main/MODEL_CARD.md", title = "DINOv2 model card, Apache 2.0 licence and teacher lineage", kind = "primary", accessed = "2026-11-12" },
+  { id = "s13", url = "https://raw.githubusercontent.com/moojink/openvla-oft/main/prismatic/vla/constants.py", title = "Per-embodiment action chunk and dimension constants", kind = "primary", accessed = "2026-11-12" },
+]
+
+[modalities]
+input = ["text", "image", "robot-state"]
+output = ["actions"]
+sources = ["s2"]
+
+[access]
+type = ["open-weights"]
+notes = "Author-released LIBERO checkpoints are downloadable on Hugging Face, including separate task-suite and combined-suite policies."
+sources = ["s3", "s5"]
+
+[architecture]
+built_on = "OpenVLA-7B, initialized from Prismatic prism-dinosiglip-224px (Llama 2 with DINOv2 and SigLIP vision backbones)"
+frameworks = ["pytorch", "transformers"]
+sources = ["s2", "s6", "s7"]
+
+[licence]
+code = "mit"
+weights = "mit"
+training_data = "OpenVLA pretraining uses an Open X-Embodiment mixture; the listed OFT policies add modified LIBERO data, whose Hub card says MIT. Individual OXE and inherited Prismatic/LLaVA training-data rights have not been fully checked."
+commercial_use = "unclear"
+commercial_use_reason = "The OFT checkpoint is labelled MIT, but the upstream OpenVLA README explicitly retains Llama 2 restrictions. Prismatic also warns of inherited dataset restrictions. Llama conditions are known; the complete data and base-weight rights are unresolved, so MIT metadata alone is insufficient."
+sources = ["s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11", "s12"]
+base_models = [
+  { name = "OpenVLA-7B (Hub MIT label, with inherited restrictions)", licence = "mit", relation = "fine-tuned-from" },
+  { name = "Prismatic prism-dinosiglip-224px (inherited weight/data conditions)", licence = "unverified", relation = "backbone" },
+  { name = "Llama 2", licence = "llama-2-community", relation = "backbone" },
+  { name = "DINOv2 ViT-L/14", licence = "apache-2.0", relation = "backbone" },
+  { name = "DINOv2 ViT-g (teacher for ViT-L)", licence = "apache-2.0", relation = "distilled-from" },
+  { name = "SigLIP ViT-So400M/14", licence = "apache-2.0", relation = "backbone" },
+]
+
+[robotics]
+action_output = "continuous-actions"
+notes = "LIBERO constants: 8-action chunks, action dimension 7 and proprioception dimension 8. ALOHA uses 25-action chunks and 14-dimensional actions/state. These settings are embodiment-specific."
+sources = ["s13"]
+
+[hardware]
+runs = "local"
+
+[[benchmarks]]
+name = "LIBERO four task suites"
+score = "97.1% average success for four separately fine-tuned policies; 96.8% for one combined policy"
+settings = "Author evaluation: LoRA rank 32; 10 tasks x 50 episodes per suite, averaged over three seeds; A100, Python 3.10.14, PyTorch 2.2.0, custom Transformers 4.40.1 fork, center 90% crop. LIBERO recipe uses two images, proprioception and L1 regression."
+run_by = "Moo Jin Kim, Chelsea Finn and Percy Liang"
+run_by_type = "vendor"
+sources = ["s3"]
+
+[[limitations]]
+text = "The MIT label on OFT/OpenVLA checkpoint cards does not remove the upstream Llama 2 licence conditions or resolve all training-data rights."
+sources = ["s5", "s6", "s7", "s8", "s10"]
+
+[[limitations]]
+text = "LIBERO success is an author-run simulation result. The project distinguishes OFT LIBERO policies from OFT+ ALOHA experiments; neither establishes success on an Armature robot."
+sources = ["s1", "s3"]
+
+[links]
+homepage = "https://openvla-oft.github.io/"
+repo = "https://github.com/moojink/openvla-oft"
+model_card = "https://huggingface.co/moojink/openvla-7b-oft-finetuned-libero-spatial"

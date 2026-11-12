@@ -1,0 +1,17 @@
+model = "whisper-large-v3-turbo"
+provider = "huggingface-hub"
+provider_name = "Hugging Face Hub (OpenAI checkpoint)"
+provider_model_id = "openai/whisper-large-v3-turbo"
+kind = "weights-download"
+access = "public"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+sources = [
+  { id = "s1", url = "https://huggingface.co/openai/whisper-large-v3-turbo", title = "OpenAI checkpoint card and download instructions", kind = "primary", accessed = "2026-11-12" },
+]
+
+[[pricing]]
+unit = "free"
+notes = "Public weight download; local inference has user-supplied compute costs. No hosted API price or download-pricing start date is asserted."
+sources = ["s1"]

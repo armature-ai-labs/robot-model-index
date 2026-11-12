@@ -1,0 +1,20 @@
+id = "mit"
+name = "MIT License"
+url = "https://raw.githubusercontent.com/openai/whisper/main/LICENSE"
+version_checked = "MIT text in OpenAI Whisper LICENSE, accessed 12 November 2026"
+type = "permissive"
+commercial_use = "yes"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+sources = [
+  { id = "s1", url = "https://raw.githubusercontent.com/openai/whisper/main/LICENSE", title = "MIT License in OpenAI Whisper", kind = "primary", accessed = "2026-11-12" },
+]
+
+[[obligations]]
+text = "When copying or distributing the software or a substantial part, keep the copyright and permission notices. Commercial use, modification and sale are permitted by this licence."
+sources = ["s1"]
+
+[[obligations]]
+text = "The software is supplied without warranties. This summary covers MIT alone, not additional model, data or base-model conditions."
+sources = ["s1"]

@@ -1,0 +1,18 @@
+model = "pi0"
+provider = "openpi-gcs"
+provider_name = "openpi checkpoints (Physical Intelligence public storage)"
+provider_model_id = "gs://openpi-assets/checkpoints/pi0_base"
+kind = "weights-download"
+access = "public"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+notes = "Base checkpoint for fine-tuning. The same table lists pi0_droid, pi0_aloha_towel, pi0_aloha_tupperware and pi0_aloha_pen_uncap for specific tasks/platforms. pi0_fast_base is a different policy and excluded."
+sources = [
+  { id = "s1", url = "https://raw.githubusercontent.com/Physical-Intelligence/openpi/main/README.md", title = "openpi checkpoint table and download instructions", kind = "primary", accessed = "2026-11-12" },
+]
+
+[[pricing]]
+unit = "free"
+notes = "Public checkpoint download, not hosted inference. Compute is supplied by the user; no start date for download pricing is published."
+sources = ["s1"]
