@@ -1,0 +1,39 @@
+model = "claude-fable-5-2"
+provider = "google-cloud"
+provider_name = "Claude on Google Cloud (Google managed)"
+provider_model_id = "claude-fable-5-2"
+kind = "hosted-api"
+access = "public"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+notes = "Provider-specific prices, price dates, regions, quotas and complete contract terms are not yet entered. Missing prices do not mean free access."
+
+[[terms]]
+text = "Platform-specific API, authentication and billing apply. This record does not establish physical-robot readiness."
+sources = ["s1", "s4"]
+
+[[terms]]
+text = "Fable 5.2 requires 30-day retention unless Anthropic expressly authorises an exception; retention is distinct from training use."
+sources = ["s3"]
+
+[[sources]]
+id = "s1"
+url = "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/claude/fable-5-2"
+title = "Claude on Google Cloud (Google managed) access guide"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s3"
+url = "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention"
+title = "Fable model-specific retention"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s4"
+url = "https://platform.claude.com/docs/en/models/fable-5-2/overview"
+title = "Model ID specification"
+kind = "primary"
+accessed = "2026-11-12"

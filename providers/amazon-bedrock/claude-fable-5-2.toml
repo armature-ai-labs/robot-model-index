@@ -1,0 +1,43 @@
+model = "claude-fable-5-2"
+provider = "amazon-bedrock"
+provider_name = "Amazon Bedrock (Claude runtime)"
+provider_model_id = "global.anthropic.claude-fable-5-2"
+kind = "hosted-api"
+access = "public"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+notes = "Provider-specific prices, price dates, regions, quotas and complete contract terms are not yet entered. Missing prices do not mean free access. The stored ID is the callable global runtime inference profile, verified against the AWS model card."
+
+[[terms]]
+text = "Platform-specific API, authentication and billing apply. This record does not establish physical-robot readiness."
+sources = ["s1", "s4"]
+
+[[terms]]
+text = "Fable 5.2 requires 30-day retention unless Anthropic expressly authorises an exception; retention is distinct from training use."
+sources = ["s3"]
+
+[[terms]]
+text = "AWS requires opting into aws_review using its Data Retention API before this model can be used."
+sources = ["s1"]
+
+[[sources]]
+id = "s1"
+url = "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-anthropic-claude-fable-5-2.html"
+title = "Amazon Bedrock (Claude runtime) access guide"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s3"
+url = "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention"
+title = "Fable model-specific retention"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s4"
+url = "https://platform.claude.com/docs/en/models/fable-5-2/overview"
+title = "Model ID specification"
+kind = "primary"
+accessed = "2026-11-12"

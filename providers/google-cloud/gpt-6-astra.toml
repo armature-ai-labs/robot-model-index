@@ -1,0 +1,28 @@
+model = "gpt-6-astra"
+provider = "google-cloud"
+provider_name = "OpenAI on Google Cloud (private preview)"
+provider_model_id = "gpt-6-astra"
+kind = "hosted-api"
+access = "partners-only"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+notes = "Private preview requires approved project access and a Marketplace private offer. Pricing and its effective dates are not disclosed in this guide."
+
+[[terms]]
+text = "Google Cloud billing, IAM, model enablement and acceptance of model terms are required. This is not unrestricted public access."
+sources = ["s1", "s4"]
+
+[[sources]]
+id = "s1"
+url = "https://developers.openai.com/api/docs/guides/google-cloud"
+title = "OpenAI on Google Cloud (private preview) access guide"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s4"
+url = "https://developers.openai.com/api/docs/models/gpt-6-astra"
+title = "Model ID specification"
+kind = "primary"
+accessed = "2026-11-12"

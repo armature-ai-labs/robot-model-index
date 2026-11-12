@@ -1,0 +1,51 @@
+model = "gpt-6-astra"
+provider = "amazon-bedrock"
+provider_name = "OpenAI GPT-6 Astra on Amazon Bedrock"
+provider_model_id = "global.openai.gpt-6-astra"
+kind = "hosted-api"
+access = "public"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+notes = "Global CRIS base prices below. Other geographies, context lengths and Ultrafast have different prices. AWS card lists Mantle in us-east-1 and us-west-2; the OpenAI guide specifically describes Oregon availability."
+
+[[variants]]
+id = "openai.gpt-6-astra"
+notes = "Mantle model ID, separate endpoint; Standard in us-east-1 and us-west-2."
+
+[[variants]]
+id = "us.openai.gpt-6-astra"
+notes = "Runtime US geographic inference profile."
+
+[[pricing]]
+unit = "usd_per_million_tokens"
+input = 10
+output = 50
+cached_input = 1
+notes = "Standard Global CRIS, at most 272,000 input tokens. No price-period boundaries stated. Geo/in-region short input/output are $11/$55; long-context and Ultrafast differ."
+sources = ["s1", "s2"]
+
+[[terms]]
+text = "Provider setup, access and billing follow the linked platform guide. Provider-specific contractual rights, retention exceptions and negotiated terms still need review."
+sources = ["s1", "s4"]
+
+[[sources]]
+id = "s1"
+url = "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-openai-gpt-6-astra.html"
+title = "OpenAI GPT-6 Astra on Amazon Bedrock access guide"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s2"
+url = "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-openai-gpt-6-astra.html"
+title = "OpenAI GPT-6 Astra on Amazon Bedrock pricing"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s4"
+url = "https://developers.openai.com/api/docs/models/gpt-6-astra"
+title = "Model ID specification"
+kind = "primary"
+accessed = "2026-11-12"
