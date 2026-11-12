@@ -1,0 +1,28 @@
+model = "gpt-6-astra"
+provider = "microsoft-foundry"
+provider_name = "Azure OpenAI in Microsoft Foundry"
+provider_model_id = "gpt-6-astra"
+kind = "hosted-api"
+access = "public"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+notes = "Model version 2026-09-03. Deployments and region/quota availability differ. Azure prices, price dates and full terms are not entered; native OpenAI prices are not copied here."
+
+[[terms]]
+text = "Azure bills and operates this route. Use the configured deployment and applicable Azure terms; account quotas may require approval."
+sources = ["s1", "s4"]
+
+[[sources]]
+id = "s1"
+url = "https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure"
+title = "Azure OpenAI in Microsoft Foundry access guide"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s4"
+url = "https://developers.openai.com/api/docs/models/gpt-6-astra"
+title = "Model ID specification"
+kind = "primary"
+accessed = "2026-11-12"

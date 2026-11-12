@@ -1,0 +1,28 @@
+model = "claude-opus-5-5"
+provider = "amazon-bedrock"
+provider_name = "Amazon Bedrock (Claude runtime)"
+provider_model_id = "global.anthropic.claude-opus-5-5"
+kind = "hosted-api"
+access = "public"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+notes = "Provider-specific prices, price dates, regions, quotas and complete contract terms are not yet entered. Missing prices do not mean free access. The stored ID is the callable global runtime inference profile, verified against the AWS model card. Mantle uses anthropic.claude-opus-5-5."
+
+[[terms]]
+text = "Platform-specific API, authentication and billing apply. This record does not establish physical-robot readiness."
+sources = ["s1", "s4"]
+
+[[sources]]
+id = "s1"
+url = "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-anthropic-claude-opus-5-5.html"
+title = "Amazon Bedrock (Claude runtime) access guide"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s4"
+url = "https://platform.claude.com/docs/en/models/opus-5-5/overview"
+title = "Model ID specification"
+kind = "primary"
+accessed = "2026-11-12"

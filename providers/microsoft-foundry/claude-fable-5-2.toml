@@ -1,0 +1,54 @@
+model = "claude-fable-5-2"
+provider = "microsoft-foundry"
+provider_name = "Claude in Microsoft Foundry"
+provider_model_id = "claude-fable-5-2"
+kind = "hosted-api"
+access = "public"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+notes = "Price dates, regional coverage, quotas and complete contract terms remain under review. This is the default deployment name; custom deployments may use another name. Fable 5.2 is Anthropic-hosted; Opus 5.5 offers Azure and Anthropic hosting."
+
+[[pricing]]
+unit = "usd_per_million_tokens"
+input = 8
+output = 40
+cached_input = 0.2
+notes = "Global standard USD rates before discounts and CCU conversion. US-only inference adds 10%. Price boundaries are not published."
+sources = ["s1", "s2"]
+
+[[terms]]
+text = "Platform-specific API, authentication and billing apply. This record does not establish physical-robot readiness."
+sources = ["s1", "s4"]
+
+[[terms]]
+text = "Fable 5.2 requires 30-day retention unless Anthropic expressly authorises an exception; retention is distinct from training use."
+sources = ["s3"]
+
+[[sources]]
+id = "s1"
+url = "https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry"
+title = "Claude in Microsoft Foundry access guide"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s2"
+url = "https://platform.claude.com/docs/en/about-claude/pricing"
+title = "Claude in Microsoft Foundry pricing"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s3"
+url = "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention"
+title = "Fable model-specific retention"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s4"
+url = "https://platform.claude.com/docs/en/models/fable-5-2/overview"
+title = "Model ID specification"
+kind = "primary"
+accessed = "2026-11-12"

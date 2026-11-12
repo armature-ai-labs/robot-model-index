@@ -1,0 +1,87 @@
+id = "gpt-6-astra"
+name = "GPT-6 Astra"
+developer = "openai"
+roles = ["frontier-llm", "vlm"]
+summary = "GPT-6 Astra is a cloud vision-language model with tool use. Its proposed role here is high-level robot planning and tool orchestration; this is not a native VLA action-policy interface."
+lifecycle = "released"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+
+[modalities]
+input = ["text", "image"]
+output = ["text", "tool-calls"]
+sources = ["s1", "s2"]
+
+[access]
+type = ["public-api"]
+notes = "Native hosted API; account eligibility and quota rules apply. No downloadable checkpoint is identified in these sources. Other access routes are recorded separately in provider files."
+sources = ["s1"]
+
+[architecture]
+parameters = "not disclosed"
+built_on = "Model-specific base-model chain not disclosed in the reviewed sources."
+sources = ["s1"]
+
+[licence]
+code = "proprietary"
+weights = "proprietary"
+training_data = "Dataset-level training licences not disclosed in the reviewed sources."
+commercial_use = "unclear"
+commercial_use_reason = "The provider grants contractual API integration rights, but the full base-model and training-data licence chain is unverified. Unclear describes this provenance audit, not a finding that authorised commercial API use is forbidden."
+sources = ["s1", "s3"]
+
+[robotics]
+action_output = "tool-calls-and-code"
+notes = "Robot planning and tool orchestration are the catalogued role. A separate robot integration and controller must interpret outputs; no native motor-command contract is documented here."
+sources = ["s1", "s2"]
+
+[hardware]
+runs = "cloud-only"
+
+[[benchmarks]]
+name = "RoboDojo Sim"
+score = "29.8%"
+settings = "Internal bimanual simulation, same camera-based harness; highest available effort; the exact effort label for this model is not specified. Episode counts, sampling details and run date are not stated on the announcement."
+run_by = "Anthropic (competing model vendor)"
+run_by_type = "vendor"
+sources = ["s4"]
+
+[[limitations]]
+text = "The cited simulation does not establish latency, task success or safety on Armature's physical robots."
+sources = ["s4"]
+
+[[key_terms]]
+text = "API access is governed by provider contracts and use restrictions, rather than an open checkpoint licence. Review the applicable contract for the selected provider."
+sources = ["s3"]
+
+[links]
+docs = "https://developers.openai.com/api/docs/models/gpt-6-astra"
+
+[[sources]]
+id = "s1"
+url = "https://developers.openai.com/api/docs/models/gpt-6-astra"
+title = "GPT-6 Astra model specifications"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s2"
+url = "https://developers.openai.com/api/docs/models/gpt-6-astra"
+title = "Current model capabilities"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s3"
+url = "https://openai.com/policies/services-agreement/"
+title = "API commercial service terms"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s4"
+url = "https://www.anthropic.com/claude-fable-and-mythos-5-2"
+title = "Anthropic internal RoboDojo Sim results"
+kind = "community"
+accessed = "2026-11-12"
