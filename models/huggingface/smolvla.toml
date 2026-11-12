@@ -28,9 +28,9 @@ sources = ["s1", "s2"]
 [licence]
 code = "apache-2.0"
 weights = "apache-2.0"
-training_data = "The paper lists 481 community robot datasets and Qwen2.5-VL-3B-Instruct-generated task annotations. Two checked dataset cards currently declare Apache 2.0; this is a sample, not a complete licence audit. Backbone training-data terms and original dataset revisions remain unverified."
+training_data = "The paper reports 481 selected community robot datasets and Qwen2.5-VL-3B-Instruct task annotations. A local count finds 532 unique repository IDs in its appendix; the selected subset is not mapped. Two individually read current cards declare Apache 2.0, not a complete licence audit. Original revisions and backbone data rights remain unverified."
 commercial_use = "unclear"
-commercial_use_reason = "SmolVLA code and weights and the SmolVLM2-500M-Video-Instruct backbone declare Apache 2.0. Commercial clearance remains unclear: the full set of 481 robot datasets, their training-time revisions, the backbone training-data chain and the annotation model terms have not all been checked. A permissive checkpoint licence alone does not resolve those gaps."
+commercial_use_reason = "SmolVLA code, weights and the direct SmolVLM2 backbone declare Apache 2.0. The reported 481-dataset selection is not reconciled with the 532 listed IDs. Actual training-time revisions, full dataset rights, backbone data and annotation terms remain unverified. Current card labels and permissive checkpoint terms do not resolve that chain."
 sources = ["s2", "s3", "s8", "s9", "s10", "s11"]
 
 [[licence.base_models]]
@@ -88,7 +88,7 @@ text = "Exported or converted versions (ONNX, TensorRT, GGUF) can drift numerica
 sources = ["s7"]
 
 [[limitations]]
-text = "The paper lists 481 pretraining datasets. Current cards for satvikahuja/mixer_on_off_new_1 (now xsatvik/mixer_on_off_new_1) and andy309/so100_0314_fold_cloths declare Apache 2.0. These two checks do not establish the licences of the remaining datasets or the revisions actually used for training."
+text = "Section 3.2 and Table 1 report 481 selected datasets, while a local parse of Appendix A.1 lists 532 unique repository IDs. The sources do not map the selected subset. The two individually read cards below declare Apache 2.0 today, not a verified licence grant for every dataset or original training revision."
 sources = ["s9", "s10", "s11"]
 
 [links]
