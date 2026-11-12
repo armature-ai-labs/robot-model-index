@@ -1,0 +1,68 @@
+id = "qwen3-5-4b"
+name = "Qwen3.5-4B"
+developer = "qwen"
+roles = ["edge-llm", "vlm"]
+summary = "Small Qwen vision-language model for text, images and video. It can describe observations and use tools in an application, but is not a trained robot action policy. Robot planning would require separate integration and evaluation."
+lifecycle = "released"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+sources = [
+  { id = "s1", url = "https://huggingface.co/Qwen/Qwen3.5-4B", title = "Qwen3.5-4B author model card", kind = "primary", accessed = "2026-11-12" },
+  { id = "s2", url = "https://huggingface.co/Qwen/Qwen3.5-4B/blob/main/LICENSE", title = "Qwen3.5-4B Apache 2.0 licence", kind = "primary", accessed = "2026-11-12" },
+  { id = "s3", url = "https://github.com/huggingface/transformers/blob/main/src/transformers/models/qwen3_5/modeling_qwen3_5.py", title = "Qwen3.5 reference inference implementation and licence header", kind = "primary", accessed = "2026-11-12" },
+  { id = "s4", url = "https://huggingface.co/Qwen/Qwen3.5-4B/raw/main/README.md", title = "Author card metadata naming Qwen3.5-4B-Base", kind = "primary", accessed = "2026-11-12" },
+  { id = "s5", url = "https://huggingface.co/Qwen/Qwen3.5-4B-Base", title = "Qwen3.5-4B-Base checkpoint card", kind = "primary", accessed = "2026-11-12" },
+  { id = "s6", url = "https://huggingface.co/Qwen/Qwen3.5-4B-Base/blob/main/LICENSE", title = "Base checkpoint Apache 2.0 licence", kind = "primary", accessed = "2026-11-12" },
+]
+
+[modalities]
+input = ["text", "image", "video"]
+output = ["text", "tool-calls"]
+sources = ["s1"]
+
+[access]
+type = ["open-weights"]
+notes = "Post-trained 4B checkpoint on the author's Hugging Face account. Hosted access is not catalogued without separately checked provider terms and model mapping."
+sources = ["s1"]
+
+[architecture]
+parameters = "4B language model, per the author overview"
+built_on = "Post-trained from Qwen3.5-4B-Base, with a vision encoder and hybrid Gated DeltaNet/attention language model; exact parent revision and earlier ancestry remain unverified"
+frameworks = ["transformers", "vllm", "sglang"]
+sources = ["s1", "s3", "s4", "s5"]
+
+[licence]
+code = "apache-2.0"
+weights = "apache-2.0"
+training_data = "Complete dataset inventory, individual rights and any inherited or teacher-model terms are not established by the reviewed card."
+commercial_use = "unclear"
+commercial_use_reason = "The post-trained and named Base checkpoint licences and reference Transformers inference code are Apache 2.0. Complete training-data rights, teacher terms and earlier ancestry remain unverified, so these permissive declarations alone do not clear the full chain."
+sources = ["s1", "s2", "s3", "s4", "s5", "s6"]
+base_models = [
+  { name = "Qwen3.5-4B-Base (author metadata parent)", licence = "apache-2.0", relation = "fine-tuned-from" },
+]
+
+[robotics]
+action_output = "tool-calls-and-code"
+notes = "Application tool use is documented. No continuous motor-action interface or robot-control success is claimed by this entry."
+sources = ["s1"]
+
+[hardware]
+runs = "local"
+
+[serving]
+protocols = ["openai-compatible-chat-completions"]
+runtimes = ["transformers", "vllm", "sglang"]
+sources = ["s1"]
+
+[[limitations]]
+text = "The card mixes family-wide MoE highlights with a 4B-specific hybrid layout. This entry does not assign a family MoE expert count to this checkpoint."
+sources = ["s1"]
+
+[[limitations]]
+text = "No 8 GB Jetson fit or Armature robot result is established. Context length, media size, precision and runtime determine deployment memory. Tool support alone does not validate a robot controller."
+sources = ["s1", "s3"]
+
+[links]
+model_card = "https://huggingface.co/Qwen/Qwen3.5-4B"

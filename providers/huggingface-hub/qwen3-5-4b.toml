@@ -1,0 +1,17 @@
+model = "qwen3-5-4b"
+provider = "huggingface-hub"
+provider_name = "Hugging Face Hub (Qwen)"
+provider_model_id = "Qwen/Qwen3.5-4B"
+kind = "weights-download"
+access = "public"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+sources = [
+  { id = "s1", url = "https://huggingface.co/Qwen/Qwen3.5-4B", title = "Author checkpoint and download/inference instructions", kind = "primary", accessed = "2026-11-12" },
+]
+
+[[pricing]]
+unit = "free"
+notes = "Public checkpoint download, not hosted inference. Compute is supplied by the user. No download-pricing effective date is stated."
+sources = ["s1"]

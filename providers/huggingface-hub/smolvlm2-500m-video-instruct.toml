@@ -1,0 +1,17 @@
+model = "smolvlm2-500m-video-instruct"
+provider = "huggingface-hub"
+provider_name = "Hugging Face Hub (HuggingFaceTB)"
+provider_model_id = "HuggingFaceTB/SmolVLM2-500M-Video-Instruct"
+kind = "weights-download"
+access = "public"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+sources = [
+  { id = "s1", url = "https://huggingface.co/HuggingFaceTB/SmolVLM2-500M-Video-Instruct", title = "Author checkpoint and public download instructions", kind = "primary", accessed = "2026-11-12" },
+]
+
+[[pricing]]
+unit = "free"
+notes = "Public checkpoint download. Local inference needs user-supplied compute; this is not a hosted API quote."
+sources = ["s1"]
