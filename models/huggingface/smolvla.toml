@@ -30,8 +30,8 @@ code = "apache-2.0"
 weights = "apache-2.0"
 training_data = "The paper reports 481 selected community robot datasets and Qwen2.5-VL-3B-Instruct task annotations. A local count finds 532 unique repository IDs in its appendix; the selected subset is not mapped. Two individually read current cards declare Apache 2.0, not a complete licence audit. Original revisions and backbone data rights remain unverified."
 commercial_use = "unclear"
-commercial_use_reason = "SmolVLA code, weights and the direct SmolVLM2 backbone declare Apache 2.0. The reported 481-dataset selection is not reconciled with the 532 listed IDs. Actual training-time revisions, full dataset rights, backbone data and annotation terms remain unverified. Current card labels and permissive checkpoint terms do not resolve that chain."
-sources = ["s2", "s3", "s8", "s9", "s10", "s11"]
+commercial_use_reason = "Code, weights and the direct SmolVLM2 backbone declare Apache 2.0. The Qwen annotation model's current research licence restricts model use and requires attribution for released models trained with its outputs; downstream applicability and original permissions are unresolved. The 481-selected/532-listed mismatch, training revisions and full data/backbone rights also remain unverified."
+sources = ["s2", "s3", "s8", "s9", "s10", "s11", "s13"]
 
 [[licence.base_models]]
 name = "SmolVLM2-500M-Video-Instruct"
@@ -90,6 +90,10 @@ sources = ["s7"]
 [[limitations]]
 text = "Section 3.2 and Table 1 report 481 selected datasets, while a local parse of Appendix A.1 lists 532 unique repository IDs. The sources do not map the selected subset. The two individually read cards below declare Apache 2.0 today, not a verified licence grant for every dataset or original training revision."
 sources = ["s9", "s10", "s11"]
+
+[[key_terms]]
+text = "The paper uses Qwen2.5-VL-3B-Instruct for task annotations. Its current Qwen Research License grants research/evaluation use and requires a separate licence for commercial model use. Section 4(b) also requires Qwen attribution in documentation of distributed models trained or improved using its outputs. Applicable historical terms, permissions and the effect on SmolVLA need review; this is not an automatic non-commercial verdict for SmolVLA weights."
+sources = ["s9", "s13"]
 
 [links]
 docs = "https://github.com/huggingface/lerobot/blob/main/docs/source/smolvla.mdx"
@@ -179,4 +183,11 @@ id = "s12"
 url = "https://github.com/eetmie/jetson-orin-nano-vla/blob/main/results/smolvla-base.json"
 title = "SmolVLA Jetson benchmark result (run environment, precision and settings)"
 kind = "community"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s13"
+url = "https://huggingface.co/Qwen/Qwen2.5-VL-3B-Instruct/blob/main/LICENSE"
+title = "Annotation model Qwen Research License Agreement, release date 19 September 2024"
+kind = "primary"
 accessed = "2026-11-12"
