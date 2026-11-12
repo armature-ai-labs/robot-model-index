@@ -8,7 +8,27 @@ status = "draft"
 last_verified = "2026-11-12"
 verified_by = ""
 regions = ["global"]
-notes = "Pricing not entered yet: Google Cloud describes its promotion differently from the Gemini Developer API (reported as credits back on spend rather than a lower list price). Enter it from the Google Cloud pricing page before verifying this file."
+notes = "Standard endpoint only. The pricing page calls this Gemini ER 2.0. Promotional amounts are provided through credits back on net spend, not an asserted lower upfront charge. No promotion start date is published."
+
+[[pricing]]
+unit = "usd_per_million_tokens"
+effective_to = "2026-12-31"
+input = 1.00
+output = 5.00
+cached_input = 0.10
+cache_storage_per_million_per_hour = 0.50
+notes = "Published promotional amounts for all input modalities and text output including reasoning. Google provides the promotion through 50% credits back on net spend on selected models. Credit settlement timing and eligibility beyond this wording are not stated here."
+sources = ["s3"]
+
+[[pricing]]
+unit = "usd_per_million_tokens"
+effective_from = "2027-01-01"
+input = 2.00
+output = 10.00
+cached_input = 0.20
+cache_storage_per_million_per_hour = 1.00
+notes = "Published amounts after the promotion. Storage rates are converted from the explicit-cache table's USD per token-hour by multiplying by one million. No Robotics batch price is listed; Developer API batch rates are not copied here."
+sources = ["s3"]
 
 [limits]
 input_tokens = 131072
@@ -28,6 +48,13 @@ sources = ["s1", "s2"]
 id = "s1"
 url = "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/gemini/robotics-er-2"
 title = "Gemini Robotics ER 2 model information, Google Cloud docs"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s3"
+url = "https://cloud.google.com/model-garden/pricing"
+title = "Google Cloud Agent Platform pricing, Gemini Robotics table"
 kind = "primary"
 accessed = "2026-11-12"
 

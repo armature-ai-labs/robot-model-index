@@ -8,6 +8,11 @@ status = "draft"
 last_verified = "2026-11-12"
 verified_by = ""
 paid_data_used_to_improve_products = false
+notes = "Input/output pricing applies to the standard and streaming endpoints. Cache and batch fields apply only to the standard endpoint. The streaming endpoint has no published cache or batch price."
+
+[[variants]]
+id = "gemini-robotics-er-2-streaming-preview"
+notes = "Live API endpoint with function calling. Same dated input/output prices as standard; no context caching, code execution or structured outputs. See s1 pricing and s2 model capabilities."
 
 [free_tier]
 available = true
@@ -24,7 +29,7 @@ cached_input = 0.10
 cache_storage_per_million_per_hour = 0.50
 batch_input = 0.50
 batch_output = 2.50
-notes = "Paid tier. Same price for text, image, video and audio input. Output price includes thinking tokens. Grounding with Google Search: 5,000 free requests a month shared across Gemini 3 and newer models, then $14 per 1,000 requests, capped at 1,500 a day."
+notes = "Paid tier, both endpoints: all input modalities $1 and text output $5 per million tokens. Standard output includes thinking. Cache and batch fields are standard-only. Streaming has the same published Google Search allowance and charges as standard: 5,000 free searches/month shared across Gemini 3 and newer, then $14/1,000, daily cap 1,500."
 sources = ["s1"]
 
 [[pricing]]
@@ -36,12 +41,20 @@ cached_input = 0.20
 cache_storage_per_million_per_hour = 1.00
 batch_input = 1.00
 batch_output = 5.00
-notes = "Paid tier. Output price includes thinking tokens."
+notes = "Paid tier, both endpoints. Standard output includes thinking tokens; cache and batch fields are standard-only."
 sources = ["s1"]
 
 [[terms]]
-text = "On the free tier, Google uses your prompts and outputs to improve its products. On the paid tier it does not."
-sources = ["s1"]
+text = "The pricing table marks free-tier data as used for product improvement and paid-tier data as not used. The terms make exceptions for the EEA, Switzerland and UK and define paid status by billing-account access. Do not submit sensitive information to unpaid services."
+sources = ["s1", "s3"]
+
+[[terms]]
+text = "The streaming variant uses the Live API and supports function calling, but not context caching, code execution, structured outputs or batch inference. Its input/output rates and published change dates match the standard endpoint."
+sources = ["s1", "s2"]
+
+[[terms]]
+text = "Gemini API use is for professional or business development. Regional, age, safety and prohibited-use restrictions apply; EEA, Swiss and UK user-facing clients require paid services."
+sources = ["s3"]
 
 [cross_check]
 portkey_provider = "google"
@@ -51,5 +64,19 @@ portkey_key = "gemini-robotics-er-2-preview-lte-128k"
 id = "s1"
 url = "https://ai.google.dev/gemini-api/docs/pricing"
 title = "Gemini Developer API pricing"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s2"
+url = "https://ai.google.dev/gemini-api/docs/models/gemini-robotics-er-2-streaming-preview"
+title = "Gemini Robotics ER 2 Streaming Preview model capabilities"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s3"
+url = "https://ai.google.dev/gemini-api/terms"
+title = "Gemini API Additional Terms, effective 23 March 2026"
 kind = "primary"
 accessed = "2026-11-12"

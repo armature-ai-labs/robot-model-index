@@ -28,14 +28,14 @@ sources = ["s1", "s2"]
 [licence]
 code = "apache-2.0"
 weights = "apache-2.0"
-training_data = "LeRobot community datasets; individual dataset licences not yet checked."
+training_data = "The paper lists 481 community robot datasets and Qwen2.5-VL-3B-Instruct-generated task annotations. Two checked dataset cards currently declare Apache 2.0; this is a sample, not a complete licence audit. Backbone training-data terms and original dataset revisions remain unverified."
 commercial_use = "unclear"
-commercial_use_reason = "Code and weights are Apache 2.0. Before marking this yes, check the backbone's licence (SmolVLM2-500M-Video-Instruct) and the licences of the community datasets used in pretraining."
-sources = ["s2", "s3"]
+commercial_use_reason = "SmolVLA code and weights and the SmolVLM2-500M-Video-Instruct backbone declare Apache 2.0. Commercial clearance remains unclear: the full set of 481 robot datasets, their training-time revisions, the backbone training-data chain and the annotation model terms have not all been checked. A permissive checkpoint licence alone does not resolve those gaps."
+sources = ["s2", "s3", "s8", "s9", "s10", "s11"]
 
 [[licence.base_models]]
 name = "SmolVLM2-500M-Video-Instruct"
-licence = "unverified"
+licence = "apache-2.0"
 relation = "backbone"
 
 [robotics]
@@ -54,9 +54,9 @@ runs = "local"
 [[hardware.fit]]
 device = "jetson-orin-nano-8gb"
 status = "community-reported"
-result = "lerobot/smolvla_base, 2 camera views, split TensorRT engines (mostly FP16): 107.55 ms per inference (9.30 Hz), 1.78 GB memory. JetPack 7.2.1, MAXN_SUPER, pinned clocks, 300-second runs."
-date = "2026-11-12"
-sources = ["s5"]
+result = "lerobot/smolvla_base, 2 camera views, split TensorRT engines (mostly FP16): p50 107.55 ms (9.30 Hz), 1.78 GB whole-board RAM. JetPack 7.2.1, TensorRT 10.16.2.10, MAXN_SUPER, pinned clocks, desktop running, 300-second synthetic-observation run, 10 denoising steps, chunk 50. Not a physical task-success test."
+date = "2026-10-13"
+sources = ["s5", "s12"]
 
 [[hardware.fit]]
 device = "rtx-5090-laptop-24gb"
@@ -86,6 +86,10 @@ sources = ["s4"]
 [[limitations]]
 text = "Exported or converted versions (ONNX, TensorRT, GGUF) can drift numerically from the PyTorch original; the vla.cpp authors report a precision mismatch in SmolVLA's position embeddings large enough to reverse the gripper command. Check outputs against the original before running on a real arm."
 sources = ["s7"]
+
+[[limitations]]
+text = "The paper lists 481 pretraining datasets. Current cards for satvikahuja/mixer_on_off_new_1 (now xsatvik/mixer_on_off_new_1) and andy309/so100_0314_fold_cloths declare Apache 2.0. These two checks do not establish the licences of the remaining datasets or the revisions actually used for training."
+sources = ["s9", "s10", "s11"]
 
 [links]
 docs = "https://github.com/huggingface/lerobot/blob/main/docs/source/smolvla.mdx"
@@ -140,4 +144,39 @@ id = "s7"
 url = "https://arxiv.org/abs/2606.08094"
 title = "vla.cpp: A Unified Inference Runtime for Vision-Language-Action Models (paper)"
 kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s8"
+url = "https://huggingface.co/HuggingFaceTB/SmolVLM2-500M-Video-Instruct"
+title = "SmolVLM2-500M-Video-Instruct model card (checkpoint licence and training data)"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s9"
+url = "https://arxiv.org/html/2506.01844v1"
+title = "SmolVLA paper, section 3.2 and appendix A.1 (pretraining dataset list)"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s10"
+url = "https://huggingface.co/datasets/xsatvik/mixer_on_off_new_1"
+title = "mixer_on_off_new_1 dataset card (renamed from satvikahuja to xsatvik)"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s11"
+url = "https://huggingface.co/datasets/andy309/so100_0314_fold_cloths"
+title = "so100_0314_fold_cloths dataset card"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s12"
+url = "https://github.com/eetmie/jetson-orin-nano-vla/blob/main/results/smolvla-base.json"
+title = "SmolVLA Jetson benchmark result (run environment, precision and settings)"
+kind = "community"
 accessed = "2026-11-12"

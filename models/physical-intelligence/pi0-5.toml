@@ -31,9 +31,9 @@ sources = ["s1", "s3"]
 code = "apache-2.0"
 weights = "not-stated"
 training_data = "Physical Intelligence robot data (10k+ hours) and other sources; not public."
-commercial_use = "conditional"
-commercial_use_reason = "The openpi code is Apache 2.0, and the README states no separate licence for the checkpoints. The model is built on PaliGemma, so it is likely a 'Model Derivative' under the Gemma Terms of Use. If so, use must follow the Gemma Prohibited Use Policy, and anyone redistributing it must pass those restrictions on, include a copy of the Gemma Terms and add the Gemma notice file. Confirm with a lawyer before commercial deployment."
-sources = ["s1", "s2", "s3", "s4"]
+commercial_use = "unclear"
+commercial_use_reason = "The code is Apache 2.0, but the reviewed README and code licence do not establish checkpoint licence scope or the full training-data rights chain. PaliGemma brings Gemma use and redistribution duties; the repository bundles older Gemma terms than Google's current page. Those known obligations do not resolve the remaining rights gaps."
+sources = ["s1", "s2", "s3", "s4", "s9"]
 
 [[licence.base_models]]
 name = "PaliGemma"
@@ -51,9 +51,9 @@ runs = "local"
 [[hardware.fit]]
 device = "jetson-orin-nano-8gb"
 status = "community-reported"
-result = "Runs, slowly, as split TensorRT engines: lerobot/pi05_base with 3 camera views at 643.39 ms per inference (1.55 Hz), 6.18 GB; openpi pi05_libero with 2 views at 438.47 ms (2.28 Hz), 6.39 GB. JetPack 7.2.1, MAXN_SUPER. Leaves little memory for other models."
-date = "2026-11-12"
-sources = ["s5"]
+result = "Community split TensorRT 10.16.2.10, mostly FP16 with selected FP32 operations: lerobot/pi05_base, 3 views, 10 denoising steps, chunk 50, p50 643.39 ms (1.55 Hz), 6.18 GB whole-board RAM; openpi pi05_libero, 2 views, 10 steps, chunk 10, 438.47 ms (2.28 Hz), 6.39 GB. JetPack 7.2.1, MAXN_SUPER, pinned clocks, desktop running, 300-second synthetic-observation runs. Run repo cb39dcf6d83f57beb81d20d876a3dc359443fde4. No robot task success measured."
+date = "2026-10-13"
+sources = ["s5", "s10", "s11"]
 
 [serving]
 protocols = ["openpi-websocket"]
@@ -64,6 +64,14 @@ sources = ["s1", "s6"]
 text = "Fine-tuned 'expert' checkpoints were trained on relatively small datasets from robots such as ALOHA and the DROID Franka setup, and may not work on your robot."
 sources = ["s1"]
 
+[[limitations]]
+text = "Physical Intelligence announced a waitlisted Pi API beta on 13 October 2026 for fine-tuning and hosted inference. The reviewed announcement and waitlist do not identify a pi0.5 endpoint, price or service terms. No hosted provider is attached to this checkpoint without that mapping."
+sources = ["s7", "s8"]
+
+[[limitations]]
+text = "openpi's bundled Gemma terms are dated 21 February 2024; Google's current terms are dated 1 April 2026 and list PaliGemma in their appendix. The applicable checkpoint terms and version need maintainer confirmation."
+sources = ["s4", "s9"]
+
 [links]
 repo = "https://github.com/Physical-Intelligence/openpi"
 paper = "https://arxiv.org/abs/2504.16054"
@@ -72,6 +80,41 @@ paper = "https://arxiv.org/abs/2504.16054"
 id = "s1"
 url = "https://github.com/Physical-Intelligence/openpi"
 title = "openpi repository README"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s10"
+url = "https://github.com/eetmie/jetson-orin-nano-vla/blob/main/results/pi05-base.json"
+title = "pi05 base Jetson result JSON, run 13 October 2026"
+kind = "community"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s11"
+url = "https://github.com/eetmie/jetson-orin-nano-vla/blob/main/results/pi05-libero.json"
+title = "pi05 LIBERO Jetson result JSON, run 13 October 2026"
+kind = "community"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s7"
+url = "https://www.pi.website/blog/api-beta"
+title = "Physical Intelligence, Pi API beta announcement, 13 October 2026"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s8"
+url = "https://www.pi.website/waitlist"
+title = "Physical Intelligence API beta waitlist"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s9"
+url = "https://github.com/Physical-Intelligence/openpi/blob/main/LICENSE_GEMMA.txt"
+title = "openpi bundled Gemma terms, 21 February 2024"
 kind = "primary"
 accessed = "2026-11-12"
 

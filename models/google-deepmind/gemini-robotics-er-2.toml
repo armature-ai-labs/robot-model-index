@@ -19,7 +19,7 @@ sources = ["s2", "s3"]
 
 [access]
 type = ["public-api"]
-notes = "Available through the Gemini Developer API (Google AI Studio) and Google Cloud. Two endpoints: gemini-robotics-er-2-preview (standard) and gemini-robotics-er-2-streaming-preview (real-time streaming through the Live API). Only the standard endpoint is catalogued so far."
+notes = "Standard endpoint through the Gemini Developer API and Google Cloud. The Developer API also offers gemini-robotics-er-2-streaming-preview through the Live API, catalogued as a provider variant. Cloud's model page lists only the standard endpoint."
 sources = ["s1", "s3"]
 
 [architecture]
@@ -31,9 +31,9 @@ sources = ["s3", "s4"]
 code = "proprietary"
 weights = "proprietary"
 training_data = "not disclosed"
-commercial_use = "yes"
-commercial_use_reason = "Closed model used through paid APIs. On Google Cloud, Google states this preview may be used for production or commercial purposes, subject to the customer's Cloud agreement. Gemini Developer API terms for commercial use not yet checked for this entry."
-sources = ["s4"]
+commercial_use = "unclear"
+commercial_use_reason = "Cloud explicitly permits commercial preview use subject to its agreement, and Gemini API terms allow professional/business development with restrictions. That establishes conditional API permission, not a fully checked model licence chain: training-data rights and internal base-model licences are undisclosed. Under this index's full-chain rule the overall verdict stays unclear; no code or weight redistribution rights are established."
+sources = ["s4", "s5"]
 
 [robotics]
 action_output = "tool-calls-and-code"
@@ -59,6 +59,10 @@ sources = ["s1"]
 text = "The standard endpoint does not support the Live API. Real-time streaming needs the separate streaming endpoint, which has a smaller feature set (no caching, code execution or structured outputs)."
 sources = ["s2"]
 
+[[limitations]]
+text = "Provider dates differ: the Developer API model page says latest update July 2026, while Cloud lists a release date of 27 October 2026. The release_date above records Cloud's date, not a confirmed universal launch date."
+sources = ["s2", "s3"]
+
 [links]
 docs = "https://ai.google.dev/gemini-api/docs/generate-content/robotics-overview"
 
@@ -66,6 +70,13 @@ docs = "https://ai.google.dev/gemini-api/docs/generate-content/robotics-overview
 id = "s1"
 url = "https://ai.google.dev/gemini-api/docs/generate-content/robotics-overview"
 title = "Gemini Robotics ER overview, Gemini API docs"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s5"
+url = "https://ai.google.dev/gemini-api/terms"
+title = "Gemini API Additional Terms, effective 23 March 2026"
 kind = "primary"
 accessed = "2026-11-12"
 
