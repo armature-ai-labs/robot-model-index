@@ -1,0 +1,18 @@
+model = "lingbot-va"
+provider = "huggingface-hub"
+provider_name = "Hugging Face Hub (Robbyant shared base checkpoint)"
+provider_model_id = "robbyant/lingbot-va-base"
+kind = "weights-download"
+access = "public"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+notes = "Original shared-backbone checkpoint for post-training, not LingBot-VA 2.0. Separate RoboTwin and LIBERO-Long post-trained checkpoints have their own task configurations and data conditions."
+sources = [
+  { id = "s1", url = "https://huggingface.co/robbyant/lingbot-va-base", title = "Robbyant base checkpoint and documented download routes", kind = "primary", accessed = "2026-11-12" },
+]
+
+[[pricing]]
+unit = "free"
+notes = "Public weight download; user supplies compute. No download-pricing start date is published."
+sources = ["s1"]

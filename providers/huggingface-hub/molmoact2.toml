@@ -1,0 +1,18 @@
+model = "molmoact2"
+provider = "huggingface-hub"
+provider_name = "Hugging Face Hub (Ai2 foundation checkpoint)"
+provider_model_id = "allenai/MolmoAct2"
+kind = "weights-download"
+access = "public"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+notes = "Foundation weights for adaptation. The card directs ready-to-run inference users to separately fine-tuned policies; this record is not a generic robot deployment or hosted API quote."
+sources = [
+  { id = "s1", url = "https://huggingface.co/allenai/MolmoAct2", title = "Ai2 foundation checkpoint card and public files", kind = "primary", accessed = "2026-11-12" },
+]
+
+[[pricing]]
+unit = "free"
+notes = "Public weights, with user-supplied compute costs. No download-pricing start date is published."
+sources = ["s1"]

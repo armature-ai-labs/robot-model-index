@@ -1,0 +1,24 @@
+id = "openmdw-1.1"
+name = "OpenMDW License Agreement 1.1"
+url = "https://openmdw.ai/license/1-1/"
+version_checked = "OpenMDW-1.1, accessed 12 November 2026"
+type = "permissive"
+commercial_use = "yes"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+sources = [
+  { id = "s1", url = "https://openmdw.ai/license/1-1/", title = "OpenMDW-1.1 licence text", kind = "primary", accessed = "2026-11-12" },
+]
+
+[[obligations]]
+text = "When distributing covered Model Materials, retain a copy of the agreement and the applicable copyright and origin notices. The grant covers the provided models and associated data, software and documentation."
+sources = ["s1"]
+
+[[obligations]]
+text = "Rights terminate for specified voluntary patent or copyright infringement litigation concerning the Model Materials, except when responding to a corresponding suit first brought against you."
+sources = ["s1"]
+
+[[obligations]]
+text = "The agreement places no restrictions on generated outputs. It supplies no warranties and leaves clearing third-party rights and obtaining required consents to the user. This summary is not legal advice."
+sources = ["s1"]

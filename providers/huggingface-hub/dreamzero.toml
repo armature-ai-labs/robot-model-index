@@ -1,0 +1,18 @@
+model = "dreamzero"
+provider = "huggingface-hub"
+provider_name = "Hugging Face Hub (NVIDIA GEAR DROID checkpoint)"
+provider_model_id = "GEAR-Dreams/DreamZero-DROID"
+kind = "weights-download"
+access = "public"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+notes = "DROID checkpoint only. Its CC BY-NC 4.0 weight grant differs from the AgiBot checkpoint's metadata. Free download does not mean commercial permission."
+sources = [
+  { id = "s1", url = "https://huggingface.co/GEAR-Dreams/DreamZero-DROID/raw/main/README.md", title = "DROID checkpoint licence and download command", kind = "primary", accessed = "2026-11-12" },
+]
+
+[[pricing]]
+unit = "free"
+notes = "Public weight download, with user-supplied inference compute. No download-pricing start date is published."
+sources = ["s1"]

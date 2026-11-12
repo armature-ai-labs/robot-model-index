@@ -1,0 +1,17 @@
+model = "dreamzero"
+provider = "nvidia-gear-research-api"
+provider_name = "NVIDIA GEAR DreamZero hosted simulation-evaluation API"
+provider_model_id = "not-disclosed"
+kind = "hosted-api"
+access = "waitlist"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+notes = "The developer README instructs users to request API access before running the DROID simulation client. Request-form content, endpoint identity, approval conditions, rate limits, regions, current service availability and prices were not confirmed. No free or payable API price is inferred."
+sources = [
+  { id = "s1", url = "https://raw.githubusercontent.com/dreamzero0/dreamzero/main/README.md", title = "Developer's Testing Out DreamZero in Simulation with API instructions", kind = "primary", accessed = "2026-11-12" },
+]
+
+[[terms]]
+text = "A documented access request is not a public API entitlement. The reviewed guide does not supply hosted-service commercial/data-use terms; do not infer them from the downloadable code or checkpoint licences."
+sources = ["s1"]

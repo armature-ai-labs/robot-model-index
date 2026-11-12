@@ -1,0 +1,82 @@
+id = "dreamzero"
+name = "DreamZero (DROID checkpoint)"
+developer = "nvidia"
+roles = ["world-action-model"]
+summary = "NVIDIA GEAR Lab's DreamZero jointly predicts future video and robot actions. This entry covers the released DROID checkpoint, which uses a pretrained Wan video backbone and DROID robot data. DreamZero-AgiBot is a separate checkpoint with different published licence metadata and is outside this entry's weight grant."
+lifecycle = "released"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+sources = [
+  { id = "s1", url = "https://raw.githubusercontent.com/dreamzero0/dreamzero/main/README.md", title = "DreamZero developer guide and access routes", kind = "primary", accessed = "2026-11-12" },
+  { id = "s2", url = "https://huggingface.co/GEAR-Dreams/DreamZero-DROID", title = "DreamZero-DROID card and non-commercial licence metadata", kind = "primary", accessed = "2026-11-12" },
+  { id = "s3", url = "https://raw.githubusercontent.com/dreamzero0/dreamzero/main/LICENSE", title = "DreamZero Apache 2.0 code licence", kind = "primary", accessed = "2026-11-12" },
+  { id = "s4", url = "https://huggingface.co/Wan-AI/Wan2.1-I2V-14B-480P", title = "Wan video backbone card and licence", kind = "primary", accessed = "2026-11-12" },
+  { id = "s5", url = "https://creativecommons.org/licenses/by-nc/4.0/legalcode.en", title = "CC BY-NC 4.0 legal code", kind = "primary", accessed = "2026-11-12" },
+  { id = "s6", url = "https://huggingface.co/GEAR-Dreams/DreamZero-AgiBot", title = "AgiBot checkpoint's different Apache 2.0 metadata", kind = "primary", accessed = "2026-11-12" },
+  { id = "s7", url = "https://huggingface.co/GEAR-Dreams/DreamZero-DROID/blob/main/config.json", title = "DROID checkpoint action dimensions and horizon", kind = "primary", accessed = "2026-11-12" },
+  { id = "s8", url = "https://huggingface.co/datasets/GEAR-Dreams/DreamZero-DROID-Data", title = "Released DROID data, without a dataset card", kind = "primary", accessed = "2026-11-12" },
+  { id = "s9", url = "https://raw.githubusercontent.com/dreamzero0/dreamzero/main/groot/vla/model/dreamzero/modules/wan_video_text_encoder.py", title = "DreamZero T5-family text encoder implementation", kind = "primary", accessed = "2026-11-12" },
+  { id = "s10", url = "https://raw.githubusercontent.com/dreamzero0/dreamzero/main/groot/vla/model/dreamzero/modules/wan_video_image_encoder.py", title = "DreamZero CLIP-family image encoder implementation", kind = "primary", accessed = "2026-11-12" },
+]
+
+[modalities]
+input = ["text", "image", "video", "robot-state"]
+output = ["video", "actions"]
+sources = ["s2"]
+
+[access]
+type = ["open-weights", "waitlist"]
+notes = "DROID weights are public on Hugging Face. The developer README also documents requesting access to a hosted DROID simulation-evaluation API. Its request form, endpoint identity and service terms were not verified in this review."
+sources = ["s1", "s2"]
+
+[architecture]
+parameters = "Unresolved scope: card text says 14B, while Hub artifact metadata reports 23B. No reconciled total count is asserted."
+built_on = "Wan2.1-I2V-14B-480P pretrained video diffusion backbone"
+frameworks = ["pytorch"]
+sources = ["s1", "s2", "s4"]
+
+[licence]
+code = "apache-2.0"
+weights = "cc-by-nc-4.0"
+training_data = "DROID robot episodes; the released processed-data page has no dataset card. Complete data rights and exact inherited encoder/VAE checkpoint lineage have not been checked."
+commercial_use = "no"
+commercial_use_reason = "The DROID checkpoint explicitly carries CC BY-NC 4.0, which excludes commercial use under that grant. Apache 2.0 code, Wan's licence or the AgiBot checkpoint's different label do not override it. This decision covers public DROID weights, not an unreviewed separately negotiated hosted-service agreement."
+sources = ["s2", "s3", "s4", "s5", "s6", "s8", "s9", "s10"]
+base_models = [
+  { name = "Wan2.1-I2V-14B-480P", licence = "apache-2.0", relation = "initialised-from" },
+  { name = "T5-family text encoder (exact released weight origin unverified)", licence = "unverified", relation = "backbone" },
+  { name = "CLIP-family visual encoder (exact released weight origin unverified)", licence = "unverified", relation = "backbone" },
+]
+
+[robotics]
+action_output = "continuous-actions"
+action_chunk = 24
+max_state_dim = 64
+max_action_dim = 32
+notes = "DROID config values include padded dimensions. The model also generates future video; neither padding dimensions nor video predictions establish physical task success on another robot."
+sources = ["s2", "s7"]
+
+[hardware]
+runs = "local-or-cloud"
+
+[serving]
+protocols = ["websocket"]
+runtimes = ["dreamzero"]
+sources = ["s1"]
+
+[[limitations]]
+text = "DROID is labelled CC BY-NC 4.0, whereas AgiBot's Hub metadata says Apache 2.0 and its model-card body is empty. Do not apply AgiBot's label to DROID or infer one family-wide commercial grant."
+sources = ["s2", "s6"]
+
+[[limitations]]
+text = "The card text says 14B parameters while Hub artifact metadata reports 23B. It also describes about 75K training episodes, while the processed-data page shows 57.8K episodes. These may cover different component/data scopes, but the reviewed sources do not reconcile them."
+sources = ["s2", "s8"]
+
+[[limitations]]
+text = "The DROID card says trained from scratch on DROID while also explicitly identifying a pretrained Wan video backbone. These statements do not establish that all released weights were randomly initialized."
+sources = ["s2"]
+
+[links]
+repo = "https://github.com/dreamzero0/dreamzero"
+model_card = "https://huggingface.co/GEAR-Dreams/DreamZero-DROID"
