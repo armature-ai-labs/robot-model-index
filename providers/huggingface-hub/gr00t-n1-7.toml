@@ -1,0 +1,36 @@
+model = "gr00t-n1-7"
+provider = "huggingface-hub"
+provider_name = "Hugging Face Hub"
+provider_model_id = "nvidia/GR00T-N1.7-3B"
+kind = "weights-download"
+access = "public"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+notes = "Base-checkpoint download only. Public model files do not remove the separately gated Cosmos-Reason2 backbone/tokenizer requirement. No hosted API price or task-specific fine-tune is catalogued."
+
+[[terms]]
+text = "Weights use the NVIDIA Open Model License; code has a separate Apache 2.0 licence. Review the inherited Cosmos conditions."
+sources = ["s1", "s2", "s3"]
+
+[[sources]]
+id = "s1"
+url = "https://huggingface.co/nvidia/GR00T-N1.7-3B"
+title = "NVIDIA GR00T N1.7 Hub download and terms"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s2"
+url = "https://huggingface.co/nvidia/Cosmos-Reason2-2B"
+title = "Cosmos-Reason2 backbone download gate"
+kind = "primary"
+accessed = "2026-11-12"
+
+
+[[sources]]
+id = "s3"
+url = "https://github.com/NVIDIA/Isaac-GR00T"
+title = "GR00T reference-code licence and required backbone access"
+kind = "primary"
+accessed = "2026-11-12"

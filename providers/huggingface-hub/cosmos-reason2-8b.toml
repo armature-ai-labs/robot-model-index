@@ -1,0 +1,28 @@
+model = "cosmos-reason2-8b"
+provider = "huggingface-hub"
+provider_name = "Hugging Face Hub"
+provider_model_id = "nvidia/Cosmos-Reason2-8B"
+kind = "weights-download"
+access = "gated-download"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+notes = "8B checkpoint only. No metered hosted endpoint or provider token price is established by this download listing."
+
+[[terms]]
+text = "The Hub requires terms acceptance and sharing account information with NVIDIA. The inline agreement is labelled 23 September 2025; its official link displays 24 October 2025. Resolve the applicable version before relying on the download terms."
+sources = ["s1", "s2"]
+
+[[sources]]
+id = "s1"
+url = "https://huggingface.co/nvidia/Cosmos-Reason2-8B"
+title = "Cosmos-Reason2-8B gated Hub download"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s2"
+url = "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-license/"
+title = "Current official NVIDIA model agreement"
+kind = "primary"
+accessed = "2026-11-12"

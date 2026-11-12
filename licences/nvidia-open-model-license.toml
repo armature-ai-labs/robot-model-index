@@ -1,0 +1,47 @@
+id = "nvidia-open-model-license"
+name = "NVIDIA Open Model License"
+url = "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-license/"
+version_checked = "Official page modified 24 October 2025; accessed 12 November 2026. Check the terms delivered with each checkpoint."
+type = "custom-with-use-restrictions"
+commercial_use = "conditional"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+
+[[obligations]]
+text = "Commercial use and derivatives are permitted subject to the agreement. Keep separate component licences."
+sources = ["s1"]
+
+[[obligations]]
+text = "Redistributed copies require the agreement and NVIDIA's prescribed Notice attribution."
+sources = ["s1"]
+
+[[obligations]]
+text = "Cosmos models, products using them and models trained or improved with them or their outputs require the prescribed Built on NVIDIA Cosmos acknowledgement."
+sources = ["s1"]
+
+[[obligations]]
+text = "Removing or weakening guardrails without a substantially similar safeguard ends the licence. Certain copyright or patent litigation also ends it."
+sources = ["s1"]
+
+[[obligations]]
+text = "Follow incorporated Trustworthy AI terms, including prohibitions on unlawful uses, and applicable trade controls."
+sources = ["s1", "s2"]
+
+[[obligations]]
+text = "If NVIDIA updates the agreement for legal or regulatory requirements, comply or stop copying, using and distributing the model and derivatives."
+sources = ["s1"]
+
+[[sources]]
+id = "s1"
+url = "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-license/"
+title = "NVIDIA Open Model License, modified 24 October 2025"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s2"
+url = "https://www.nvidia.com/en-us/agreements/trustworthy-ai/terms/"
+title = "NVIDIA Trustworthy AI terms, modified 27 June 2024"
+kind = "primary"
+accessed = "2026-11-12"

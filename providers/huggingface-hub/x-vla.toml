@@ -1,0 +1,32 @@
+model = "x-vla"
+provider = "huggingface-hub"
+provider_name = "Hugging Face Hub"
+provider_model_id = "2toINF/X-VLA-Pt"
+kind = "weights-download"
+access = "public"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+notes = "Original foundation checkpoint plus a separately packaged LeRobot base variant. Model cards declare Apache 2.0; this does not settle the backbone/data licence chain. No hosted inference price is asserted."
+
+[[variants]]
+id = "lerobot/xvla-base"
+notes = "LeRobot-compatible base checkpoint, packaged separately from the original foundation download."
+
+[[terms]]
+text = "Both checkpoint cards declare Apache 2.0. Their declarations alone do not settle inherited backbone or training-data rights."
+sources = ["s1", "s2"]
+
+[[sources]]
+id = "s1"
+url = "https://huggingface.co/2toINF/X-VLA-Pt"
+title = "Original X-VLA foundation download"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s2"
+url = "https://huggingface.co/lerobot/xvla-base"
+title = "LeRobot X-VLA base download"
+kind = "primary"
+accessed = "2026-11-12"
