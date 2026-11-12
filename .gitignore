@@ -1,0 +1,6 @@
+dist/
+dist-preview/
+dist-test/
+__pycache__/
+*.pyc
+.venv/

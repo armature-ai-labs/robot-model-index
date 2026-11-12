@@ -1,0 +1,55 @@
+model = "gemini-robotics-er-2"
+provider = "google-ai-studio"
+provider_name = "Gemini Developer API (Google AI Studio)"
+provider_model_id = "gemini-robotics-er-2-preview"
+kind = "hosted-api"
+access = "public"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+paid_data_used_to_improve_products = false
+
+[free_tier]
+available = true
+data_used_to_improve_products = true
+sources = ["s1"]
+
+# Discounted rates run through 31 Dec 2026, then double. No start date is published.
+[[pricing]]
+unit = "usd_per_million_tokens"
+effective_to = "2026-12-31"
+input = 1.00
+output = 5.00
+cached_input = 0.10
+cache_storage_per_million_per_hour = 0.50
+batch_input = 0.50
+batch_output = 2.50
+notes = "Paid tier. Same price for text, image, video and audio input. Output price includes thinking tokens. Grounding with Google Search: 5,000 free requests a month shared across Gemini 3 and newer models, then $14 per 1,000 requests, capped at 1,500 a day."
+sources = ["s1"]
+
+[[pricing]]
+unit = "usd_per_million_tokens"
+effective_from = "2027-01-01"
+input = 2.00
+output = 10.00
+cached_input = 0.20
+cache_storage_per_million_per_hour = 1.00
+batch_input = 1.00
+batch_output = 5.00
+notes = "Paid tier. Output price includes thinking tokens."
+sources = ["s1"]
+
+[[terms]]
+text = "On the free tier, Google uses your prompts and outputs to improve its products. On the paid tier it does not."
+sources = ["s1"]
+
+[cross_check]
+portkey_provider = "google"
+portkey_key = "gemini-robotics-er-2-preview-lte-128k"
+
+[[sources]]
+id = "s1"
+url = "https://ai.google.dev/gemini-api/docs/pricing"
+title = "Gemini Developer API pricing"
+kind = "primary"
+accessed = "2026-11-12"

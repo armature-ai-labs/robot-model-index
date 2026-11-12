@@ -1,0 +1,39 @@
+model = "gemini-robotics-er-2"
+provider = "google-cloud"
+provider_name = "Google Cloud (Gemini Enterprise Agent Platform)"
+provider_model_id = "gemini-robotics-er-2-preview"
+kind = "hosted-api"
+access = "public"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+regions = ["global"]
+notes = "Pricing not entered yet: Google Cloud describes its promotion differently from the Gemini Developer API (reported as credits back on spend rather than a lower list price). Enter it from the Google Cloud pricing page before verifying this file."
+
+[limits]
+input_tokens = 131072
+output_tokens = 65536
+rate_limit = "250 requests per minute by default per project (200 to 300 depending on quota tier)"
+sources = ["s1"]
+
+[[terms]]
+text = "Google states customers may use this Generative AI Preview offering for production or commercial purposes, subject to the agreement under which they access Google Cloud."
+sources = ["s2"]
+
+[[terms]]
+text = "During preview, the endpoint is available only in the global region."
+sources = ["s1", "s2"]
+
+[[sources]]
+id = "s1"
+url = "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/gemini/robotics-er-2"
+title = "Gemini Robotics ER 2 model information, Google Cloud docs"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s2"
+url = "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/gemini/gemini-robotics-er"
+title = "Gemini Robotics ER 2 overview, Google Cloud docs"
+kind = "primary"
+accessed = "2026-11-12"

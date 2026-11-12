@@ -1,0 +1,29 @@
+name: Request a model
+description: Ask for a model to be added to the Robot Model Index
+labels: ["model request"]
+body:
+  - type: input
+    id: model
+    attributes:
+      label: Model name
+      placeholder: e.g. GR00T N1.7
+    validations:
+      required: true
+  - type: dropdown
+    id: role
+    attributes:
+      label: Role
+      options: [Frontier model used as a robot brain, Embodied reasoning, VLA, World model, World action model, Edge LLM or VLM, Speech, Perception, Reward model, Not sure]
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: Link to the developer's own page, model card or paper
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why it matters to you
+      description: What robot or task you'd use it for. This helps us prioritise.

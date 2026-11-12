@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/armature-ai-labs/robot-model-index/schema/provider.schema.json",
+  "title": "Robot Model Index: provider entry",
+  "description": "How one provider makes one model available: endpoint name, access, regions, limits, pricing over time, and terms.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["model", "provider", "provider_name", "provider_model_id", "kind", "access", "status", "last_verified", "verified_by", "sources"],
+  "$defs": {
+    "date": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+    "sourceRefs": {"type": "array", "minItems": 1, "items": {"type": "string", "pattern": "^s[0-9]+$"}},
+    "money": {"type": "number", "minimum": 0}
+  },
+  "properties": {
+    "model": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+    "provider": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+    "provider_name": {"type": "string"},
+    "provider_model_id": {"type": "string"},
+    "kind": {"enum": ["hosted-api", "weights-download"]},
+    "access": {"enum": ["public", "waitlist", "partners-only", "gated-download"]},
+    "status": {"enum": ["draft", "verified"]},
+    "last_verified": {"$ref": "#/$defs/date"},
+    "verified_by": {"type": "string"},
+    "regions": {"type": "array", "items": {"type": "string"}},
+    "variants": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["id", "notes"], "properties": {"id": {"type": "string"}, "notes": {"type": "string"}}}},
+    "free_tier": {
+      "type": "object", "additionalProperties": false, "required": ["available", "sources"],
+      "properties": {
+        "available": {"type": "boolean"},
+        "data_used_to_improve_products": {"type": "boolean"},
+        "sources": {"$ref": "#/$defs/sourceRefs"}
+      }
+    },
+    "paid_data_used_to_improve_products": {"type": "boolean"},
+    "pricing": {
+      "type": "array",
+      "description": "One item per price period. Leave effective_from out if the start date is not published. Periods must not overlap.",
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["unit", "sources"],
+        "properties": {
+          "unit": {"enum": ["usd_per_million_tokens", "usd_per_hour", "usd_per_request", "free"]},
+          "effective_from": {"$ref": "#/$defs/date"},
+          "effective_to": {"$ref": "#/$defs/date"},
+          "input": {"$ref": "#/$defs/money"},
+          "output": {"$ref": "#/$defs/money"},
+          "cached_input": {"$ref": "#/$defs/money"},
+          "cache_storage_per_million_per_hour": {"$ref": "#/$defs/money"},
+          "batch_input": {"$ref": "#/$defs/money"},
+          "batch_output": {"$ref": "#/$defs/money"},
+          "notes": {"type": "string"},
+          "sources": {"$ref": "#/$defs/sourceRefs"}
+        }
+      }
+    },
+    "limits": {
+      "type": "object", "additionalProperties": false, "required": ["sources"],
+      "properties": {
+        "input_tokens": {"type": "integer", "minimum": 1},
+        "output_tokens": {"type": "integer", "minimum": 1},
+        "rate_limit": {"type": "string"},
+        "sources": {"$ref": "#/$defs/sourceRefs"}
+      }
+    },
+    "terms": {
+      "type": "array",
+      "items": {"type": "object", "additionalProperties": false, "required": ["text", "sources"], "properties": {"text": {"type": "string"}, "sources": {"$ref": "#/$defs/sourceRefs"}}}
+    },
+    "notes": {"type": "string"},
+    "cross_check": {
+      "type": "object", "additionalProperties": false,
+      "description": "Optional mapping to the Portkey Models database (MIT) so the weekly job can flag price differences.",
+      "properties": {"portkey_provider": {"type": "string"}, "portkey_key": {"type": "string"}}
+    },
+    "sources": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["id", "url", "title", "kind", "accessed"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^s[0-9]+$"},
+          "url": {"type": "string", "format": "uri"},
+          "title": {"type": "string"},
+          "kind": {"enum": ["primary", "community"]},
+          "accessed": {"$ref": "#/$defs/date"}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+id = "gemma-terms-of-use"
+name = "Gemma Terms of Use"
+url = "https://ai.google.dev/gemma/terms"
+version_checked = "Archived version last modified 1 April 2024; confirm against the current terms before verifying."
+type = "custom-with-use-restrictions"
+commercial_use = "conditional"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+
+[[obligations]]
+text = "'Model Derivatives' include modifications of Gemma, works based on Gemma, and other models created by transferring patterns of Gemma's weights, parameters or outputs to them. Outputs themselves are not Model Derivatives."
+sources = ["s1"]
+
+[[obligations]]
+text = "You must not use Gemma or Model Derivatives for the uses restricted by the Gemma Prohibited Use Policy, or in violation of law."
+sources = ["s1"]
+
+[[obligations]]
+text = "Anyone distributing Gemma or a Model Derivative must include those use restrictions as an enforceable provision in their own terms, notify recipients of them, and give recipients a copy of the Gemma Terms."
+sources = ["s1"]
+
+[[obligations]]
+text = "Distributions other than through a hosted service must include a Notice file stating that Gemma is provided under and subject to the Gemma Terms of Use."
+sources = ["s1"]
+
+[[obligations]]
+text = "Modified files must carry prominent notices stating that you modified them."
+sources = ["s1"]
+
+[[obligations]]
+text = "Google claims no rights in outputs you generate."
+sources = ["s1"]
+
+[[sources]]
+id = "s1"
+url = "https://ai.google.dev/gemma/terms-archive/terms_04_01_24"
+title = "Gemma Terms of Use (archived version, 1 April 2024)"
+kind = "primary"
+accessed = "2026-11-12"

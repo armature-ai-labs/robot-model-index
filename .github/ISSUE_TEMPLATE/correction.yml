@@ -1,0 +1,24 @@
+name: Correction
+description: Report a wrong or outdated fact
+labels: ["correction"]
+body:
+  - type: input
+    id: file
+    attributes:
+      label: Entry
+      placeholder: e.g. models/huggingface/smolvla.toml
+    validations:
+      required: true
+  - type: textarea
+    id: wrong
+    attributes:
+      label: What's wrong, and what it should say
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Primary source for the correct fact
+      description: Developer docs, pricing page, licence file, model card or paper.
+    validations:
+      required: true

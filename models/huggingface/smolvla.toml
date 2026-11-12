@@ -1,0 +1,143 @@
+id = "smolvla"
+name = "SmolVLA"
+developer = "huggingface"
+roles = ["vla"]
+summary = "Compact open vision-language-action model from Hugging Face's LeRobot team. Pretrained at 450M parameters and designed to be fine-tuned on LeRobot datasets, it outputs chunks of continuous robot actions and runs on consumer GPUs and small edge boards."
+release_date = "2025-06"
+lifecycle = "released"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+
+[modalities]
+input = ["text", "image", "robot-state"]
+output = ["actions"]
+sources = ["s2"]
+
+[access]
+type = ["open-weights"]
+notes = "Base checkpoint lerobot/smolvla_base on the Hugging Face Hub; fine-tune it on your own robot's demonstrations."
+sources = ["s1"]
+
+[architecture]
+parameters = "450M"
+built_on = "SmolVLM2-500M-Video-Instruct vision-language backbone with a flow-matching action expert"
+frameworks = ["pytorch", "lerobot"]
+sources = ["s1", "s2"]
+
+[licence]
+code = "apache-2.0"
+weights = "apache-2.0"
+training_data = "LeRobot community datasets; individual dataset licences not yet checked."
+commercial_use = "unclear"
+commercial_use_reason = "Code and weights are Apache 2.0. Before marking this yes, check the backbone's licence (SmolVLM2-500M-Video-Instruct) and the licences of the community datasets used in pretraining."
+sources = ["s2", "s3"]
+
+[[licence.base_models]]
+name = "SmolVLM2-500M-Video-Instruct"
+licence = "unverified"
+relation = "backbone"
+
+[robotics]
+action_output = "continuous-actions"
+action_chunk = 50
+default_denoising_steps = 10
+max_state_dim = 32
+max_action_dim = 32
+image_resolution = "512x512 (resized with padding)"
+notes = "Defaults from LeRobot's SmolVLA configuration. A community benchmark found 1 denoising step kept task success on LIBERO (see benchmarks)."
+sources = ["s2"]
+
+[hardware]
+runs = "local"
+
+[[hardware.fit]]
+device = "jetson-orin-nano-8gb"
+status = "community-reported"
+result = "lerobot/smolvla_base, 2 camera views, split TensorRT engines (mostly FP16): 107.55 ms per inference (9.30 Hz), 1.78 GB memory. JetPack 7.2.1, MAXN_SUPER, pinned clocks, 300-second runs."
+date = "2026-11-12"
+sources = ["s5"]
+
+[[hardware.fit]]
+device = "rtx-5090-laptop-24gb"
+status = "community-reported"
+result = "lerobot/smolvla_libero: 111.0 ms median per decision with LeRobot defaults; 14.4 ms with 1 denoising step and whole-model compile; GPU energy 11.00 J vs 1.44 J per decision."
+date = "2026-11-12"
+sources = ["s4"]
+
+[[benchmarks]]
+name = "LIBERO (4 suites x 10 tasks x 10 episodes)"
+score = "82.00% (328/400)"
+settings = "lerobot/smolvla_libero; identical success with LeRobot defaults and with 1 denoising step plus whole-model compile"
+run_by = "Sisir Kausthubh"
+run_by_type = "independent"
+date = "2026-11"
+sources = ["s4"]
+
+[serving]
+protocols = ["lerobot-grpc-policy-server"]
+runtimes = ["lerobot", "vla.cpp"]
+sources = ["s1", "s6"]
+
+[[limitations]]
+text = "The 1-step denoising speed-up was validated only on LIBERO; other tasks or robots may need more steps."
+sources = ["s4"]
+
+[[limitations]]
+text = "Exported or converted versions (ONNX, TensorRT, GGUF) can drift numerically from the PyTorch original; the vla.cpp authors report a precision mismatch in SmolVLA's position embeddings large enough to reverse the gripper command. Check outputs against the original before running on a real arm."
+sources = ["s7"]
+
+[links]
+docs = "https://github.com/huggingface/lerobot/blob/main/docs/source/smolvla.mdx"
+repo = "https://github.com/huggingface/lerobot"
+paper = "https://arxiv.org/abs/2506.01844"
+model_card = "https://huggingface.co/lerobot/smolvla_base"
+
+[[sources]]
+id = "s1"
+url = "https://github.com/huggingface/lerobot/blob/main/docs/source/smolvla.mdx"
+title = "SmolVLA guide, LeRobot docs"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s2"
+url = "https://github.com/huggingface/lerobot/blob/main/src/lerobot/policies/smolvla/configuration_smolvla.py"
+title = "SmolVLA configuration (defaults and licence header), LeRobot source"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s3"
+url = "https://huggingface.co/lerobot/smolvla_base"
+title = "lerobot/smolvla_base model card"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s4"
+url = "https://github.com/captof-omuamua/efficient-smolvla-voice-to-action"
+title = "Efficient SmolVLA on LIBERO (Sisir Kausthubh)"
+kind = "community"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s5"
+url = "https://github.com/eetmie/jetson-orin-nano-vla"
+title = "VLA models on an 8 GB Jetson Orin Nano Super (community benchmarks)"
+kind = "community"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s6"
+url = "https://github.com/VinRobotics/vla.cpp"
+title = "vla.cpp unified VLA runtime"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s7"
+url = "https://arxiv.org/abs/2606.08094"
+title = "vla.cpp: A Unified Inference Runtime for Vision-Language-Action Models (paper)"
+kind = "primary"
+accessed = "2026-11-12"

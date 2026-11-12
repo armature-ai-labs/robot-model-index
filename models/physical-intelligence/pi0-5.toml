@@ -1,0 +1,111 @@
+# Licence-chain example: Apache 2.0 code, but the model is built on PaliGemma,
+# which brings the Gemma Terms of Use into the picture.
+
+id = "pi0-5"
+name = "π0.5 (pi0.5)"
+developer = "physical-intelligence"
+roles = ["vla"]
+summary = "Vision-language-action model from Physical Intelligence aimed at open-world generalization, such as cleaning kitchens and bedrooms in homes it has never seen. Base and fine-tuned checkpoints are released openly in the openpi repository, pre-trained on 10k+ hours of robot data."
+release_date = "2025-04-22"
+lifecycle = "released"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+
+[modalities]
+input = ["text", "image", "robot-state"]
+output = ["actions"]
+sources = ["s1", "s3"]
+
+[access]
+type = ["open-weights"]
+notes = "Checkpoints download from Physical Intelligence's public storage via the openpi repository: pi05_base (for fine-tuning), plus pi05_droid and pi05_libero (fine-tuned). Open weights were added to openpi in September 2025; the paper came out in April 2025."
+sources = ["s1"]
+
+[architecture]
+built_on = "PaliGemma vision-language model (SigLIP image encoder plus Gemma language model) with a separate action expert"
+frameworks = ["jax", "pytorch"]
+sources = ["s1", "s3"]
+
+[licence]
+code = "apache-2.0"
+weights = "not-stated"
+training_data = "Physical Intelligence robot data (10k+ hours) and other sources; not public."
+commercial_use = "conditional"
+commercial_use_reason = "The openpi code is Apache 2.0, and the README states no separate licence for the checkpoints. The model is built on PaliGemma, so it is likely a 'Model Derivative' under the Gemma Terms of Use. If so, use must follow the Gemma Prohibited Use Policy, and anyone redistributing it must pass those restrictions on, include a copy of the Gemma Terms and add the Gemma notice file. Confirm with a lawyer before commercial deployment."
+sources = ["s1", "s2", "s3", "s4"]
+
+[[licence.base_models]]
+name = "PaliGemma"
+licence = "gemma-terms-of-use"
+relation = "initialised-from"
+
+[robotics]
+action_output = "continuous-actions"
+notes = "openpi supports only the flow-matching action head for π0.5 training and inference."
+sources = ["s1"]
+
+[hardware]
+runs = "local"
+
+[[hardware.fit]]
+device = "jetson-orin-nano-8gb"
+status = "community-reported"
+result = "Runs, slowly, as split TensorRT engines: lerobot/pi05_base with 3 camera views at 643.39 ms per inference (1.55 Hz), 6.18 GB; openpi pi05_libero with 2 views at 438.47 ms (2.28 Hz), 6.39 GB. JetPack 7.2.1, MAXN_SUPER. Leaves little memory for other models."
+date = "2026-11-12"
+sources = ["s5"]
+
+[serving]
+protocols = ["openpi-websocket"]
+runtimes = ["openpi", "lerobot", "vla.cpp"]
+sources = ["s1", "s6"]
+
+[[limitations]]
+text = "Fine-tuned 'expert' checkpoints were trained on relatively small datasets from robots such as ALOHA and the DROID Franka setup, and may not work on your robot."
+sources = ["s1"]
+
+[links]
+repo = "https://github.com/Physical-Intelligence/openpi"
+paper = "https://arxiv.org/abs/2504.16054"
+
+[[sources]]
+id = "s1"
+url = "https://github.com/Physical-Intelligence/openpi"
+title = "openpi repository README"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s2"
+url = "https://github.com/Physical-Intelligence/openpi/blob/main/LICENSE"
+title = "openpi LICENSE (Apache 2.0)"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s3"
+url = "https://arxiv.org/abs/2504.16054"
+title = "π0.5: a Vision-Language-Action Model with Open-World Generalization (paper)"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s4"
+url = "https://ai.google.dev/gemma/terms"
+title = "Gemma Terms of Use"
+kind = "primary"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s5"
+url = "https://github.com/eetmie/jetson-orin-nano-vla"
+title = "VLA models on an 8 GB Jetson Orin Nano Super (community benchmarks)"
+kind = "community"
+accessed = "2026-11-12"
+
+[[sources]]
+id = "s6"
+url = "https://github.com/VinRobotics/vla.cpp"
+title = "vla.cpp unified VLA runtime"
+kind = "primary"
+accessed = "2026-11-12"

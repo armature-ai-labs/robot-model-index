@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/armature-ai-labs/robot-model-index/schema/model.schema.json",
+  "title": "Robot Model Index: model entry",
+  "description": "Provider-independent facts about one AI model a robot might use. Serving and pricing facts live in provider files.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "developer", "roles", "summary", "lifecycle", "status", "last_verified", "verified_by", "access", "licence", "sources"],
+  "$defs": {
+    "date": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}(-[0-9]{2})?$"},
+    "sourceRefs": {"type": "array", "minItems": 1, "items": {"type": "string", "pattern": "^s[0-9]+$"}},
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["text", "sources"],
+      "properties": {"text": {"type": "string", "minLength": 1}, "sources": {"$ref": "#/$defs/sourceRefs"}}
+    },
+    "licenceRef": {"type": "string", "pattern": "^[a-z0-9][a-z0-9.-]*$"}
+  },
+  "properties": {
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+    "name": {"type": "string"},
+    "developer": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+    "roles": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": {"enum": ["frontier-llm", "embodied-reasoning", "vla", "world-model", "world-action-model", "edge-llm", "vlm", "speech-asr", "speech-tts", "perception", "reward-model"]}
+    },
+    "summary": {"type": "string", "minLength": 20},
+    "release_date": {"$ref": "#/$defs/date"},
+    "lifecycle": {"enum": ["announced", "research", "preview", "released", "deprecated", "retired"]},
+    "status": {"enum": ["draft", "verified"], "description": "Only verified entries are published. A human sets verified after checking every claim against its sources."},
+    "last_verified": {"$ref": "#/$defs/date"},
+    "verified_by": {"type": "string", "description": "GitHub handle of the person who checked the entry. Empty while draft."},
+    "modalities": {
+      "type": "object", "additionalProperties": false, "required": ["input", "output", "sources"],
+      "properties": {
+        "input": {"type": "array", "items": {"enum": ["text", "image", "video", "audio", "robot-state", "depth", "point-cloud"]}},
+        "output": {"type": "array", "items": {"enum": ["text", "image", "video", "audio", "actions", "tool-calls"]}},
+        "sources": {"$ref": "#/$defs/sourceRefs"}
+      }
+    },
+    "access": {
+      "type": "object", "additionalProperties": false, "required": ["type", "sources"],
+      "properties": {
+        "type": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["open-weights", "public-api", "waitlist", "partners-only", "research-only", "not-available"]}},
+        "notes": {"type": "string"},
+        "sources": {"$ref": "#/$defs/sourceRefs"}
+      }
+    },
+    "architecture": {
+      "type": "object", "additionalProperties": false, "required": ["sources"],
+      "properties": {
+        "parameters": {"type": "string"},
+        "built_on": {"type": "string"},
+        "frameworks": {"type": "array", "items": {"type": "string"}},
+        "sources": {"$ref": "#/$defs/sourceRefs"}
+      }
+    },
+    "licence": {
+      "type": "object", "additionalProperties": false,
+      "required": ["code", "weights", "commercial_use", "commercial_use_reason", "sources"],
+      "properties": {
+        "code": {"$ref": "#/$defs/licenceRef"},
+        "weights": {"$ref": "#/$defs/licenceRef"},
+        "base_models": {
+          "type": "array",
+          "items": {
+            "type": "object", "additionalProperties": false, "required": ["name", "licence", "relation"],
+            "properties": {
+              "name": {"type": "string"},
+              "licence": {"$ref": "#/$defs/licenceRef"},
+              "relation": {"enum": ["initialised-from", "backbone", "distilled-from", "fine-tuned-from"]}
+            }
+          }
+        },
+        "training_data": {"type": "string"},
+        "commercial_use": {"enum": ["yes", "conditional", "no", "unclear"]},
+        "commercial_use_reason": {"type": "string", "minLength": 10},
+        "sources": {"$ref": "#/$defs/sourceRefs"}
+      }
+    },
+    "robotics": {
+      "type": "object", "additionalProperties": false, "required": ["action_output", "sources"],
+      "properties": {
+        "action_output": {"enum": ["none", "continuous-actions", "discrete-action-tokens", "tool-calls-and-code", "points-and-trajectories", "predicted-video"]},
+        "action_chunk": {"type": "integer", "minimum": 1},
+        "default_denoising_steps": {"type": "integer", "minimum": 1},
+        "max_state_dim": {"type": "integer", "minimum": 1},
+        "max_action_dim": {"type": "integer", "minimum": 1},
+        "image_resolution": {"type": "string"},
+        "embodiments": {"type": "array", "items": {"type": "string"}},
+        "notes": {"type": "string"},
+        "sources": {"$ref": "#/$defs/sourceRefs"}
+      }
+    },
+    "hardware": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "runs": {"enum": ["cloud-only", "local", "local-or-cloud"]},
+        "fit": {
+          "type": "array",
+          "items": {
+            "type": "object", "additionalProperties": false, "required": ["device", "status", "result"],
+            "properties": {
+              "device": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+              "status": {"enum": ["measured-by-armature", "community-reported", "vendor-claimed", "untested"]},
+              "result": {"type": "string"},
+              "date": {"$ref": "#/$defs/date"},
+              "sources": {"$ref": "#/$defs/sourceRefs"}
+            }
+          }
+        }
+      }
+    },
+    "benchmarks": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["name", "score", "run_by", "run_by_type", "sources"],
+        "properties": {
+          "name": {"type": "string"},
+          "score": {"type": "string"},
+          "settings": {"type": "string"},
+          "run_by": {"type": "string"},
+          "run_by_type": {"enum": ["vendor", "independent", "armature"]},
+          "date": {"$ref": "#/$defs/date"},
+          "sources": {"$ref": "#/$defs/sourceRefs"}
+        }
+      }
+    },
+    "serving": {
+      "type": "object", "additionalProperties": false, "required": ["sources"],
+      "properties": {
+        "protocols": {"type": "array", "items": {"type": "string"}},
+        "runtimes": {"type": "array", "items": {"type": "string"}},
+        "sources": {"$ref": "#/$defs/sourceRefs"}
+      }
+    },
+    "limitations": {"type": "array", "items": {"$ref": "#/$defs/claim"}},
+    "key_terms": {"type": "array", "items": {"$ref": "#/$defs/claim"}},
+    "links": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "homepage": {"type": "string", "format": "uri"},
+        "docs": {"type": "string", "format": "uri"},
+        "repo": {"type": "string", "format": "uri"},
+        "paper": {"type": "string", "format": "uri"},
+        "model_card": {"type": "string", "format": "uri"}
+      }
+    },
+    "sources": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["id", "url", "title", "kind", "accessed"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^s[0-9]+$"},
+          "url": {"type": "string", "format": "uri"},
+          "title": {"type": "string"},
+          "kind": {"enum": ["primary", "community"], "description": "primary: developer docs, model cards, licence files, papers, code. community: independent measurements, allowed only for hardware fit and benchmarks."},
+          "accessed": {"$ref": "#/$defs/date"}
+        }
+      }
+    }
+  }
+}

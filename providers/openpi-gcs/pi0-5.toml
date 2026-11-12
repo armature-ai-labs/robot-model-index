@@ -1,0 +1,29 @@
+model = "pi0-5"
+provider = "openpi-gcs"
+provider_name = "openpi checkpoints (Physical Intelligence public storage)"
+provider_model_id = "gs://openpi-assets/checkpoints/pi05_base"
+kind = "weights-download"
+access = "public"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+
+[[variants]]
+id = "gs://openpi-assets/checkpoints/pi05_droid"
+notes = "Fine-tuned on the DROID dataset with knowledge insulation: fast inference and good language following. For inference or further fine-tuning."
+
+[[variants]]
+id = "gs://openpi-assets/checkpoints/pi05_libero"
+notes = "Fine-tuned for the LIBERO benchmark. For inference."
+
+[[pricing]]
+unit = "free"
+notes = "Free download; openpi downloads and caches checkpoints automatically (~/.cache/openpi by default)."
+sources = ["s1"]
+
+[[sources]]
+id = "s1"
+url = "https://github.com/Physical-Intelligence/openpi"
+title = "openpi repository README (Model Checkpoints)"
+kind = "primary"
+accessed = "2026-11-12"

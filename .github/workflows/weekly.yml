@@ -1,0 +1,24 @@
+name: Weekly check
+
+# Mondays 03:30 UTC (09:00 IST): price cross-check against Portkey Models,
+# stale entries and prices ending soon. Report appears in the run summary.
+
+on:
+  schedule:
+    - cron: "30 3 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python scripts/validate.py
+      - run: python scripts/weekly_check.py >> "$GITHUB_STEP_SUMMARY"
