@@ -1,0 +1,48 @@
+id = "gemini-robotics-2"
+name = "Gemini Robotics 2"
+developer = "google-deepmind"
+roles = ["vla"]
+summary = "Google DeepMind's July 2026 VLA converts visual observations and instructions into robot control. The author demonstrates humanoid and bi-arm manipulation. It is distinct from the public ER 2 reasoning API, On-Device 2, and the later Robotics 2.5 model."
+release_date = "2026-07-30"
+lifecycle = "preview"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+sources = [
+  { id = "s1", url = "https://deepmind.google/blog/gemini-robotics-2-brings-whole-body-intelligence-to-robots/", title = "Google DeepMind Robotics 2 announcement, 30 July 2026", kind = "primary", accessed = "2026-11-12" },
+  { id = "s2", url = "https://deepmind.google/models/gemini-robotics/", title = "Current Gemini Robotics family page and tester access", kind = "primary", accessed = "2026-11-12" },
+  { id = "s3", url = "https://docs.google.com/forms/d/1sM5GqcVMWv-KmKY3TOMpVtQ-lDFeAftQ-d9xQn92jCE/viewform?edit_requested=true&ts=67cef986", title = "Official Trusted Tester Program waitlist, linked by launch post", kind = "primary", accessed = "2026-11-12" },
+]
+
+[modalities]
+input = ["text", "image"]
+output = ["actions"]
+sources = ["s1"]
+
+[access]
+type = ["partners-only", "waitlist"]
+notes = "Launch post offers VLA access to early-access partners and links a tester waitlist. Current family page advertises 2.5; whether an applicant can still select the July 2 checkpoint is unverified. No public endpoint or weight download is asserted."
+sources = ["s1", "s2", "s3"]
+
+[licence]
+code = "not-stated"
+weights = "not-stated"
+training_data = "Complete dataset inventory and component rights not disclosed in reviewed sources."
+commercial_use = "unclear"
+commercial_use_reason = "Public partner invitations do not publish a licence for VLA code, weights, base models or data, or establish the applicable commercial-access agreement. ER 2 API terms are not transferred to this different action model."
+sources = ["s1", "s2", "s3"]
+
+[[limitations]]
+text = "The July launch post covers three different models. The public ER 2 API is a reasoning model, while VLA and On-Device access was partner-gated. Its API endpoint and price cannot be used as a quote for this VLA."
+sources = ["s1"]
+
+[[limitations]]
+text = "The current family page highlights Robotics 2.5. This does not establish retirement or unchanged availability of Robotics 2. All demonstrations cited here are vendor-presented, not an independent or Armature evaluation."
+sources = ["s1", "s2"]
+
+[[limitations]]
+text = "Vendor demonstrations include Apptronik Apollo 2 and Franka Duo. Action representation, chunk size, control rate and deployment compute are not established here, so no structured continuous/discrete action interface or hardware fit is asserted. On-Device 2 is a separate model."
+sources = ["s1"]
+
+[links]
+homepage = "https://deepmind.google/models/gemini-robotics/"

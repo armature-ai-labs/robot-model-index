@@ -1,0 +1,71 @@
+id = "smolvlm2-500m-video-instruct"
+name = "SmolVLM2-500M-Video-Instruct"
+developer = "huggingface"
+roles = ["vlm"]
+summary = "Hugging Face's small video, image and text model produces text descriptions and answers. This entry selects the 500M checkpoint used as SmolVLA's backbone, not the whole SmolVLM2 family or a robot action policy."
+release_date = "2025-02-20"
+lifecycle = "released"
+status = "draft"
+last_verified = "2026-11-12"
+verified_by = ""
+sources = [
+  { id = "s1", url = "https://huggingface.co/HuggingFaceTB/SmolVLM2-500M-Video-Instruct/raw/main/README.md", title = "Author model card, metadata, component links and training mixture", kind = "primary", accessed = "2026-11-12" },
+  { id = "s2", url = "https://huggingface.co/blog/smolvlm2", title = "Hugging Face SmolVLM2 release, 20 February 2025", kind = "primary", accessed = "2026-11-12" },
+  { id = "s3", url = "https://github.com/huggingface/transformers/blob/main/src/transformers/models/smolvlm/modeling_smolvlm.py", title = "SmolVLM reference inference implementation and Apache header", kind = "primary", accessed = "2026-11-12" },
+  { id = "s4", url = "https://huggingface.co/HuggingFaceTB/SmolVLM-500M-Instruct", title = "Immediate predecessor checkpoint card and Apache licence", kind = "primary", accessed = "2026-11-12" },
+  { id = "s5", url = "https://huggingface.co/HuggingFaceTB/SmolLM2-360M-Instruct", title = "Linked SmolLM2 language backbone card", kind = "primary", accessed = "2026-11-12" },
+  { id = "s6", url = "https://huggingface.co/google/siglip-base-patch16-512", title = "Linked SigLIP image backbone card", kind = "primary", accessed = "2026-11-12" },
+  { id = "s7", url = "https://huggingface.co/HuggingFaceTB/SmolVLM2-500M-Video-Instruct/raw/main/config.json", title = "Published architecture configuration, no original checkpoint path", kind = "primary", accessed = "2026-11-12" },
+  { id = "s8", url = "https://github.com/huggingface/lerobot/blob/main/src/lerobot/policies/smolvla/configuration_smolvla.py", title = "SmolVLA configuration, exact VLM checkpoint identity", kind = "primary", accessed = "2026-11-12" },
+]
+
+[modalities]
+input = ["text", "image", "video"]
+output = ["text"]
+sources = ["s1", "s2"]
+
+[access]
+type = ["open-weights"]
+notes = "Public 500M checkpoint. The 256M and 2.2B siblings are separate models, not interchangeable deployment settings."
+sources = ["s1", "s2"]
+
+[architecture]
+parameters = "500M"
+built_on = "Idefics3-style architecture with SigLIP image encoding and SmolLM2 text decoding; metadata names SmolVLM-500M-Instruct as predecessor"
+frameworks = ["transformers"]
+sources = ["s1", "s3", "s7"]
+
+[licence]
+code = "apache-2.0"
+weights = "apache-2.0"
+training_data = "The card describes video/image/text mixtures and lists dataset sources. Original revisions, all component licences, inherited predecessor data and synthetic-data rights have not been fully audited."
+commercial_use = "unclear"
+commercial_use_reason = "The released checkpoint, linked predecessor and linked vision/language backbones declare Apache 2.0; reference inference code has the same licence. The complete training-data rights chain remains unverified. Idefics3 architectural inspiration does not itself prove initialization from Llama 3 weights."
+sources = ["s1", "s3", "s4", "s5", "s6", "s7"]
+base_models = [
+  { name = "SigLIP base patch16 512 (linked image backbone)", licence = "apache-2.0", relation = "backbone" },
+  { name = "SmolLM2-360M-Instruct (linked text backbone)", licence = "apache-2.0", relation = "backbone" },
+]
+
+[robotics]
+action_output = "none"
+notes = "Text-producing perception component. SmolVLA adds a separate action expert; this checkpoint alone does not produce robot actions."
+sources = ["s1", "s2", "s8"]
+
+[hardware]
+runs = "local"
+
+[serving]
+runtimes = ["transformers", "mlx-vlm"]
+sources = ["s2", "s3"]
+
+[[limitations]]
+text = "The author card warns about unreliable factual output and high-stakes uses. No board-specific memory or robot-task benchmark is entered; its generic memory claim lacks a complete device and workload description."
+sources = ["s1"]
+
+[[limitations]]
+text = "The card metadata names SmolVLM-500M-Instruct as a base model, but the exact transfer method and training revision are not established here. It is recorded in the architecture and licence discussion without inventing a structured initialization relation."
+sources = ["s1", "s4", "s7"]
+
+[links]
+model_card = "https://huggingface.co/HuggingFaceTB/SmolVLM2-500M-Video-Instruct"
